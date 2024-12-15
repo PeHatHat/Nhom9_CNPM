@@ -21,18 +21,22 @@ Nếu bạn chưa có môi trường ảo:
 Trên Windows:
 
 python -m venv .venv
+
 .venv\Scripts\activate
 
 Trên macOS/Linux:
 
 python3 -m venv .venv
+
 source .venv/bin/activate
 
 
 ### 3. Cài Đặt Dependencies
+
 pip install -r requirements.txt
 
 ### 4. Thiết Lập Cơ Sở Dữ Liệu
+
 #### a. Tạo Database
 
 Mở MySQL Workbench
@@ -43,6 +47,7 @@ Tạo một database mới với tên jewelry_auction
 
 ##### b. Import Dữ Liệu Mẫu
 cd Nhom9_CNPM
+
 mysql -u [username] -p jewelry_auction < data.sql
 
 Thay [username] bằng username MySQL của bạn và nhập password khi được yêu cầu.
@@ -54,15 +59,25 @@ Mở file jewelry_auction/settings.py.
 Cấu hình phần DATABASES để kết nối với database MySQL trên máy của bạn:
 
 DATABASES = {
+
     'default': {
+
         'ENGINE': 'django.db.backends.mysql',
+
         'NAME': 'jewelry_auction',  # Tên database
+
         'USER': 'your_mysql_username',  # Username MySQL của bạn
+
         'PASSWORD': 'your_mysql_password',  # Password MySQL của bạn
+
         'HOST': 'localhost',  # Hoặc IP address của MySQL server
+
         'PORT': '3306',  # Cổng mặc định của MySQL
+
     }
+
 }
+
 
 Lưu ý: Thay your_mysql_username và your_mysql_password bằng thông tin đăng nhập MySQL của bạn. Không commit mật khẩu lên repository.
 
