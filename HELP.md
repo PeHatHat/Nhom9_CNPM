@@ -1,4 +1,3 @@
-Tôi hiểu rồi. Dưới đây là file HELP.md với toàn bộ các bước cài đặt, từ clone repository đến chạy server, đều nằm trong các code block để bạn có thể dễ dàng copy:
 
 # Hướng Dẫn Cài Đặt và Sử Dụng - Jewelry Auction System
 
