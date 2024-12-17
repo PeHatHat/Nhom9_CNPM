@@ -74,10 +74,22 @@ WSGI_APPLICATION = 'jewelry_auction.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+
+'default': {
+
+    'ENGINE': 'django.db.backends.mysql',
+
+    'NAME': 'jewelry_auction',  # Tên database
+
+    'USER': 'root',  # Username MySQL của bạn
+
+    'PASSWORD': 'your_pass',  # Password MySQL của bạn
+
+    'HOST': 'localhost',  # Hoặc IP address của MySQL server
+
+    'PORT': '3306',  # Cổng mặc định của MySQL
+
+}
 }
 
 
