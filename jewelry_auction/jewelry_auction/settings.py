@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o06(36!9m$wikxpznsg5(*6726f8c@hsfi)v&um8dc^i75-ers'
+SECRET_KEY = 'django-insecure-p%td*o7km*#usm4u(7#2fi!q=(9%k0&0+34uiis*n2-v5%fxfd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,12 +75,8 @@ WSGI_APPLICATION = 'jewelry_auction.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jewelry_auction',
-        'USER': 'root',
-        'PASSWORD': '',# mỗi người khi clone về thì nhập mật khẩu cơ sở dữ liệu ở đây , khi commit phải xóa mật khẩu 
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
