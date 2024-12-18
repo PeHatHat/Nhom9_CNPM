@@ -47,12 +47,16 @@ Mở MySQL Workbench
 
 Kết nối đến MySQL Server.
 
-Tạo một database mới với tên jewelry_auction
+Tạo một database mới với tên jewelry_auction ( nếu lần đầu)
 
-Nếu có thay đổi dữ liệu database thì export lại file data.sql
-
-##### b. Import Dữ Liệu Mẫu
+##### b. Export/Import Dữ Liệu Mẫu(Mỗi lần dùng là 1 lần import/export )
 ```cd Nhom9_CNPM```
+
+Export:
+
+```mysqldump -u user -p jewelry_auction > jewelry_auction_data.sql```
+
+Import:
 
 ```mysql -u [username] -p jewelry_auction < jewelry_auction_data.sql```
 
