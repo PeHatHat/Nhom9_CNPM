@@ -1,135 +1,112 @@
-@startuml   Class
+@startuml Class
 left to right direction
-skinparam classAttributeIconSize 0
-skinparam class {
-    BackgroundColor #ADD8E6
-    ArrowColor #2E8B57
-    BorderColor #2E8B57
-    FontName Arial
-}
-skinparam note {
-    BackgroundColor #F0FFFF
-    FontColor #2F4F4F
-    BorderColor #2F4F4F
-    FontName Arial
-}
-
 class User {
-  -user_id : int <<PK>>
-  -username : string
-  -password : string
-  -email : string
-  -first_name : string
-  -last_name : string
-  -role : string
-  -registration_date : datetime
-  -last_login : datetime
-  -profile_picture : string
-  -jcoin_balance : decimal
-  +__str__() : string
-  +get_absolute_url() : string
+  - user_id : INT <<PK>>
+  - username : VARCHAR
+  - password : VARCHAR
+  - email : VARCHAR
+  - first_name : VARCHAR
+  - last_name : VARCHAR
+  - role : VARCHAR
+  - registration_date : DATETIME
+  - last_login : DATETIME
+  - profile_picture : VARCHAR
+  - jcoin_balance : DECIMAL
+  + register()
+  + login()
+  + logout()
+  + update_profile()
+  + get_full_name()
 }
 
 class Jewelry {
-  -jewelry_id : int <<PK>>
-  -name : string
-  -description : text
-  -seller_id : int <<FK>>
-  -initial_price : decimal
-  -preliminary_price : decimal
-  -final_price : decimal
-  -image_1 : string
-  -image_2 : string
-  -image_3 : string
-  -status : string
-  +__str__() : string
-  +get_absolute_url() : string
+  - jewelry_id : INT <<PK>>
+  - name : VARCHAR
+  - description : TEXT
+  - seller : User <<FK>>
+  - initial_price : DECIMAL
+  - preliminary_price : DECIMAL
+  - final_price : DECIMAL
+  - image_1 : VARCHAR
+  - image_2 : VARCHAR
+  - image_3 : VARCHAR
+  - status : VARCHAR
+  + submit_for_auction()
+  + update_status()
+  + get_image_urls()
 }
 
 class Auction {
-  -auction_id : int <<PK>>
-  -manager_id : int <<FK>>
-  -staff_id : int <<FK>>
-  -start_time : datetime
-  -end_time : datetime
-  -status : string
-  +__str__() : string
-  +get_absolute_url() : string
+  - auction_id : INT <<PK>>
+  - jewelry : Jewelry <<FK>>
+  - manager : User <<FK>>
+  - staff : User <<FK>>
+  - start_time : DATETIME
+  - end_time : DATETIME
+  - status : VARCHAR
+  + create_auction()
+  + add_jewelry()
+  + assign_staff()
+  + open_auction()
+  + close_auction()
+  + cancel_auction()
+  + get_highest_bid()
 }
 
 class Bid {
-  -bid_id : int <<PK>>
-  -auction_id : int <<FK>>
-  -jewelry_id : int <<FK>>
-  -buyer_id : int <<FK>>
-  -amount : decimal
-  -timestamp : datetime
-  +__str__() : string
-  +get_absolute_url() : string
+  - bid_id : INT <<PK>>
+  - auction : Auction <<FK>>
+  - bidder : User <<FK>>
+  - amount : DECIMAL
+  - timestamp : DATETIME
+  + place_bid()
 }
 
 class Transaction {
-  -transaction_id : int <<PK>>
-  -auction_id : int <<FK>>
-  -buyer_id : int <<FK>>
-  -seller_id : int <<FK>>
-  -amount : decimal
-  -fee : decimal
-  -timestamp : datetime
-  -status : string
-  +__str__() : string
-  +get_absolute_url() : string
-}
-
-class Request {
-  -request_id : int <<PK>>
-  -seller_id : int <<FK>>
-  -jewelry_id : int <<FK>>
-  -status : string
-  -preliminary_price : decimal
-  -final_price : decimal
-  -created_at : datetime
-  -updated_at : datetime
-  +__str__() : string
-  +get_absolute_url() : string
+  - transaction_id : INT <<PK>>
+  - auction : Auction <<FK>>
+  - buyer : User <<FK>>
+  - seller : User <<FK>>
+  - amount : DECIMAL
+  - fee : DECIMAL
+  - timestamp : DATETIME
+  - status : VARCHAR
+  + create_transaction()
+  + update_status()
 }
 
 class Blog {
-  -blog_id : int <<PK>>
-  -title : string
-  -content : text
-  -author_id : int <<FK>>
-  -publication_date : datetime
-  +__str__() : string
-  +get_absolute_url() : string
+  - blog_id : INT <<PK>>
+  - title : VARCHAR
+  - content : TEXT
+  - author : User <<FK>>
+  - publication_date : DATETIME
+  + create_post()
+  + get_recent_posts()
 }
 
-note left of User : - Các trường thông tin cá nhân\n- Vai trò (role)\n- Số dư JCoin\n- Các phương thức liên quan \nđến việc hiển thị và xác thực
+class JCoinManagement {
+  - total_jcoin : DECIMAL
+  + create_jcoin(admin: User, amount: DECIMAL)
+  + distribute_jcoin(admin: User, user: User, amount: DECIMAL)
+  + adjust_jcoin_balance(admin: User, user: User, amount: DECIMAL)
+  + get_total_jcoin()
+}
 
-note right of Jewelry : - Thông tin mô tả\n- Giá cả\n- Hình ảnh\n- Trạng thái
-
-note right of Auction : - Thông tin về phiên đấu giá\n- Thời gian bắt đầu/kết thúc\n- Trạng thái
-
-note left of Bid : - Thông tin về giá thầu\n- Liên kết với phiên đấu giá, \ntrang sức và người mua
-
-note right of Transaction : - Thông tin về giao dịch mua bán\n- Liên kết với phiên đấu giá, \nngười mua và người bán
-
-note right of Request : - Thông tin về yêu cầu đăng ký \ntrang sức\n- Giá cả ở các giai đoạn \n- Liên kết với người bán và trang sức
-
-note left of Blog : - Thông tin về bài viết blog\n- Liên kết với tác giả
-
-User "1" -- "*" Jewelry : Seller đăng ký
-User "1" -- "*" Auction : Manager tạo
-User "1" -- "*" Auction : Staff phụ trách
-User "1" -- "*" Bid : Buyer đặt
-User "1" -- "*" Transaction : Buyer thực hiện
-User "1" -- "*" Transaction : Seller thực hiện
-User "1" -- "*" Request : Seller tạo
-User "1" -- "*" Blog : Admin viết
-Auction "1" -- "*" Jewelry : ""
-Auction "1" -- "*" Bid : ""
-Auction "0..1" -- "1" Transaction : ""
-Jewelry "1" -- "*" Bid : ""
-Jewelry "1" -- "1" Request : ""
-
+class FeeConfiguration {
+  - fee_rate : DECIMAL
+  + set_fee_rate(admin: User, new_rate: DECIMAL)
+  + get_fee_rate()
+}
+User "1" -- "*" Jewelry : owns >
+User "1" -- "*" Bid : makes >
+User "1" -- "*" Transaction : participates in >
+User "1" -- "*" Blog : writes >
+Jewelry "1" -- "1,*" Auction : in >
+Auction "1" -- "*" Bid : receives >
+Auction "1" -- "1" Transaction : results in >
+Auction "1" -- "1" User : create by <
+Auction "0" -- "1" User : assign to <
+JCoinManagement "1" -- "1" User : managed by <
+FeeConfiguration "1" -- "1" User : configured by <
 @enduml
