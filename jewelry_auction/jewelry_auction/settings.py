@@ -85,7 +85,7 @@ DATABASES = {
 
     'USER': 'root',  # Username MySQL của bạn
 
-    'PASSWORD': '142857',  # Password MySQL của bạn
+    'PASSWORD': 'your_pass',  # Password MySQL của bạn
 
     'HOST': 'localhost',  # Hoặc IP address của MySQL server
 

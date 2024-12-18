@@ -54,7 +54,7 @@ Nếu có thay đổi dữ liệu database thì export lại file data.sql
 ##### b. Import Dữ Liệu Mẫu
 ```cd Nhom9_CNPM```
 
-```mysql -u [username] -p jewelry_auction < jewelry_auction_data```
+```mysql -u [username] -p jewelry_auction < jewelry_auction_data.sql```
 
 Lưu ý: Cần cài biến môi trường cho mySQL
 
