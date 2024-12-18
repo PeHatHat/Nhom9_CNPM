@@ -50,7 +50,7 @@ Kết nối đến MySQL Server.
 Tạo một database mới với tên jewelry_auction ( nếu lần đầu)
 
 ##### b. Export/Import Dữ Liệu Mẫu(Mỗi lần dùng là 1 lần import/export )
-```cd Nhom9_CNPM```
+```cd ..```
 
 Export:
 
