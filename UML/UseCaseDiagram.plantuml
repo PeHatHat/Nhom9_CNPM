@@ -1,4 +1,4 @@
-@startuml UseCase
+@startuml   usecase
 left to right direction
 skinparam shadowing false
 skinparam actorStyle awesome
@@ -85,6 +85,7 @@ rectangle "Jewelry Auction System" {
   ' Mối quan hệ giữa các tác nhân và Use Case
   Guest -- UC14
   Guest -- UC28
+
   Buyer -- UC01
   Buyer -- UC02
   Buyer -- UC03
@@ -94,6 +95,7 @@ rectangle "Jewelry Auction System" {
   Buyer -- UC23
   Buyer -- UC14
   Buyer -- UC28
+
   Seller -- UC01
   Seller -- UC02
   Seller -- UC03
@@ -103,6 +105,7 @@ rectangle "Jewelry Auction System" {
   Seller -- UC13
   Seller -- UC14
   Seller -- UC28
+
   Staff -- UC02
   Staff -- UC03
   Staff -- UC04
@@ -117,6 +120,7 @@ rectangle "Jewelry Auction System" {
   Staff -- UC33
   Staff -- UC14
   Staff -- UC28
+
   Manager -- UC02
   Manager -- UC03
   Manager -- UC04
@@ -132,6 +136,7 @@ rectangle "Jewelry Auction System" {
   Manager -- UC33
   Manager -- UC14
   Manager -- UC28
+
   Admin -- UC02
   Admin -- UC03
   Admin -- UC04
@@ -143,6 +148,7 @@ rectangle "Jewelry Auction System" {
   Admin -- UC31
   Admin -- UC32
   Admin -- UC33
+
   System -- UC18
   System -- UC19
   System -- UC24
