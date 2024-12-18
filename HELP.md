@@ -99,5 +99,5 @@ Lưu ý: Thay your_mysql_username và your_mysql_password bằng thông tin đă
 
 Mở trình duyệt và truy cập địa chỉ http://127.0.0.1:8000/ để kiểm tra.
 
-Đăng nhập vào trang admin (http://127.0.0.1:8000/admin) với tài khoản superuser đã được tạo trong file data.sql (liên hệ nhóm trưởng để biết thông tin đăng nhập).
+Đăng nhập vào trang admin (http://127.0.0.1:8000/admin) với tài khoản superuser đã được tạo trong jewelry_auction_data.sql (liên hệ nhóm trưởng để biết thông tin đăng nhập).
 
