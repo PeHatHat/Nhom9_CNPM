@@ -1,0 +1,11 @@
+{% load static %}
+<nav>
+    <a href="{% url 'home' %}">Trang chủ</a>
+    {% if user.is_authenticated %}
+        <span>Xin chào, {{ user.username }}</span>
+        <a href="{% url 'logout' %}">Đăng xuất</a>
+    {% else %}
+        <a href="{% url 'login' %}">Đăng nhập</a>
+        <a href="{% url 'register' %}">Đăng ký</a>
+    {% endif %}
+</nav>

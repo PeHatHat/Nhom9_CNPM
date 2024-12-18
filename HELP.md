@@ -35,6 +35,8 @@ Trên macOS/Linux:
 
 ### 3. Cài Đặt Dependencies
 
+```cd jewelry_auction```
+
 ```pip install -r requirements.txt```
 
 ### 4. Thiết Lập Cơ Sở Dữ Liệu
@@ -47,10 +49,12 @@ Kết nối đến MySQL Server.
 
 Tạo một database mới với tên jewelry_auction
 
+Nếu có thay đổi dữ liệu database thì export lại file data.sql
+
 ##### b. Import Dữ Liệu Mẫu
 ```cd Nhom9_CNPM```
 
-```mysql -u [username] -p jewelry_auction < data.sql```
+```mysql -u [username] -p jewelry_auction < jewelry_auction_data```
 
 Lưu ý: Cần cài biến môi trường cho mySQL
 

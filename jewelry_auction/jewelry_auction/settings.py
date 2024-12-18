@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize', #format số
-    'core', # Thêm core
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'jewelry_auction.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Thêm dòng này
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +85,7 @@ DATABASES = {
 
     'USER': 'root',  # Username MySQL của bạn
 
-    'PASSWORD': 'your_pass',  # Password MySQL của bạn
+    'PASSWORD': '142857',  # Password MySQL của bạn
 
     'HOST': 'localhost',  # Hoặc IP address của MySQL server
 
@@ -131,15 +131,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+# (Optional) - Tùy chọn, chỉ định thư mục chứa file static
+# khi chạy lệnh collectstatic. Thường dùng khi deploy.
+# STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-LOGIN_URL = 'login'
-
-LOGOUT_REDIRECT_URL = 'home'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
