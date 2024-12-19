@@ -30,7 +30,7 @@ Trên macOS/Linux:
 
 ```python3 -m venv .venv```
 
-```source .venv/bin/activate```
+```.venv/bin/activate```
 
 
 ### 3. Cài Đặt Dependencies
@@ -58,11 +58,20 @@ Export:
 
 Import:
 
-```mysql -u [username] -p jewelry_auction < jewelry_auction_data.sql```
+```mysql -u root -p jewelry_auction < jewelry_auction_data.sql```
+
+Áp dụng các migrations đó vào database local:(mỗi lần)
+
+```python manage.py migrate```
+
+```python manage.py makemigrations```
+
 
 Lưu ý: Cần cài biến môi trường cho mySQL
 
-Thay [username] bằng username MySQL của bạn và nhập password khi được yêu cầu.
+Thay [root] bằng username MySQL của bạn và nhập password khi được yêu cầu.
+
+Nhớ chạy makemigrations(export) và migrate(import) mỗi khi bạn thay đổi models để giữ cho database và code đồng bộ.
 
 ### 5. Cấu Hình settings.py
 
@@ -92,7 +101,11 @@ DATABASES = {
 }
 ```
 
-Lưu ý: Thay your_mysql_username và your_mysql_password bằng thông tin đăng nhập MySQL của bạn. Không commit mật khẩu lên repository.
+Lưu ý: 
+
+Thay your_mysql_username và your_mysql_password bằng thông tin đăng nhập MySQL của bạn. 
+
+Không commit mật khẩu lên repository.
 
 ### Cách Chạy Server
 ```python manage.py runserver```

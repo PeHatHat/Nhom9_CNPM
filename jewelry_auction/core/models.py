@@ -76,7 +76,7 @@ class Auction(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
-    jewelry = models.ManyToManyField(Jewelry, related_name="auctions")
+    jewelry = models.ForeignKey(Jewelry, on_delete=models.CASCADE, related_name="auctions", null=True, blank=True)
 
     def __str__(self):
         return f"Auction {self.pk}"

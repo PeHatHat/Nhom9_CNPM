@@ -138,8 +138,10 @@ STATICFILES_DIRS = [
 # khi chạy lệnh collectstatic. Thường dùng khi deploy.
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# settings.py
+
+MEDIA_URL = '/media/'  # URL để truy cập các file media
+MEDIA_ROOT = BASE_DIR / 'media' # Đường dẫn tuyệt đối đến thư mục media trên server
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
