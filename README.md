@@ -1,6 +1,6 @@
 # Jewelry Auction System - Nhom9_CNPM
 
-Đây là repository cho dự án đấu giá trang sức trực tuyến của nhóm 9 môn Công Nghệ Phần Mềm.
+Đây là repository cho dự án đấu giá trang sức của nhóm 9 môn Công Nghệ Phần Mềm.
 
 ## Mô Tả
 

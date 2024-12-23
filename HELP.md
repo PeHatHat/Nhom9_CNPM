@@ -35,8 +35,6 @@ Trên macOS/Linux:
 
 ### 3. Cài Đặt Dependencies
 
-```cd jewelry_auction```
-
 ```pip install -r requirements.txt```
 
 ### 4. Thiết Lập Cơ Sở Dữ Liệu
@@ -50,7 +48,6 @@ Kết nối đến MySQL Server.
 Tạo một database mới với tên jewelry_auction ( nếu lần đầu)
 
 ##### b. Export/Import Dữ Liệu Mẫu(Mỗi lần dùng là 1 lần import/export )
-```cd ..```
 
 Export:
 

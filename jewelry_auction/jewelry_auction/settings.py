@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import os
-from pathlib import Path
 
+from pathlib import Path
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p%td*o7km*#usm4u(7#2fi!q=(9%k0&0+34uiis*n2-v5%fxfd'
+SECRET_KEY = 'django-insecure-dh(q#uce#6o_jyrew8j%v4@t5-0hjv!(m53(qglprk!)bxxpch'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize', #format số
+    'rest_framework',
+    'drf_yasg',
+    'users',
+    'jewelry',
+    'auctions',
+    'bids',
+    'transactions',
+    'blog',
     'core',
 ]
 
@@ -56,7 +63,7 @@ ROOT_URLCONF = 'jewelry_auction.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Thêm dòng này
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,22 +83,14 @@ WSGI_APPLICATION = 'jewelry_auction.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-
-'default': {
-
-    'ENGINE': 'django.db.backends.mysql',
-
-    'NAME': 'jewelry_auction',  # Tên database
-
-    'USER': 'root',  # Username MySQL của bạn
-
-    'PASSWORD': 'your_pass',  # Password MySQL của bạn
-
-    'HOST': 'localhost',  # Hoặc IP address của MySQL server
-
-    'PORT': '3306',  # Cổng mặc định của MySQL
-
-}
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'jewelry_auction',  # Tên database
+        'USER': 'root',  # Username MySQL của bạn
+        'PASSWORD': '@Phh27102005',  # Password MySQL của bạn
+        'HOST': 'localhost',  # Hoặc IP address của MySQL server
+        'PORT': '3306',  # Cổng mặc định của MySQL
+    }
 }
 
 
@@ -129,21 +128,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-# (Optional) - Tùy chọn, chỉ định thư mục chứa file static
-# khi chạy lệnh collectstatic. Thường dùng khi deploy.
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# settings.py
-
-MEDIA_URL = '/media/'  # URL để truy cập các file media
-MEDIA_ROOT = BASE_DIR / 'media' # Đường dẫn tuyệt đối đến thư mục media trên server
-
+STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication', # Nếu bạn muốn sử dụng Token-based Authentication
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated', # Mặc định yêu cầu authenticate
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
