@@ -5,15 +5,13 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from core import views as core_views
 
 schema_view = get_schema_view(
    openapi.Info(
       title="Jewelry Auction API",
       default_version='v1',
       description="API documentation for Jewelry Auction System",
-      terms_of_service="https://www.yourapp.com/terms/",
-      contact=openapi.Contact(email="contact@yourapp.com"),
-      license=openapi.License(name="Your License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
@@ -21,6 +19,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', core_views.home, name='home'),
     path('api/jewelry/', include('jewelry.urls')),
     path('api/blog/', include('blog.urls')),
     path('api/users/', include('users.urls')),
