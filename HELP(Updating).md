@@ -57,7 +57,7 @@ Import:
 
 ```mysql -u root -p jewelry_auction < jewelry_auction_data.sql```
 
-Áp dụng các migrations đó vào database local:(mỗi lần)
+Áp dụng các migrations đó vào database local mỗi khi thay đổi models hoặc lần đầu chạy dự án
 
 ```python manage.py migrate```
 

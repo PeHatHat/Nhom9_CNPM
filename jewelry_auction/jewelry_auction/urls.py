@@ -23,6 +23,8 @@ urlpatterns = [
     path('api/jewelry/', include('jewelry.urls')),
     path('api/blog/', include('blog.urls')),
     path('api/users/', include('users.urls')),
+    path('api/bids/', include('bids.urls')),
+    path('api/auctions/', include('auctions.urls')),
     path('swagger<str:format>', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
