@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_yasg',
     'users',
     'jewelry',
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'jewelry_auction.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jewelry_auction',  # Tên database
         'USER': 'root',  # Username MySQL của bạn
-        'PASSWORD': '@Phh27102005',  # Password MySQL của bạn
+        'PASSWORD': 'your_pass',  # Password MySQL của bạn
         'HOST': 'localhost',  # Hoặc IP address của MySQL server
         'PORT': '3306',  # Cổng mặc định của MySQL
     }
@@ -129,8 +130,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+FIXTURE_DIRS = [
+    BASE_DIR / 'fixtures',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -141,10 +147,10 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication', # Nếu bạn muốn sử dụng Token-based Authentication
+        'rest_framework.authentication.TokenAuthentication', # Thêm dòng này
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated', # Mặc định yêu cầu authenticate
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
