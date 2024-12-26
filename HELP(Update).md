@@ -48,6 +48,8 @@ Tạo một database mới với tên jewelry_auction ( nếu lần đầu)
 
 2.`python manage.py migrate`
 
+3.`python manage.py loaddata users.json core.json jewelry.json blog.json auctions.json bids.json` hoặc tự tạo.
+
 Lưu ý: Cần cài biến môi trường cho mySQL.
 
 Nhớ chạy makemigrations(export các models) và migrate(import các models) mỗi khi bạn thay đổi models để giữ cho database và code đồng bộ.
