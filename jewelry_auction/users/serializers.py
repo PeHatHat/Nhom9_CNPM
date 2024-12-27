@@ -31,3 +31,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['user_id', 'username', 'first_name', 'last_name', 'role', 'jcoin_balance', 'is_active', 'is_staff', 'is_superuser']
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'role', 'jcoin_balance', 'is_active', 'is_staff'] # Các trường Admin có thể cập nhật

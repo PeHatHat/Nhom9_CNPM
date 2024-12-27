@@ -3,10 +3,10 @@ from .models import Jewelry
 
 class JewelrySerializer(serializers.ModelSerializer):
     owner_username = serializers.CharField(source='owner.username', read_only=True)
+
     class Meta:
         model = Jewelry
         fields = ['jewelry_id', 'name', 'description', 'owner', 'owner_username', 'initial_price', 'image_1', 'image_2', 'image_3', 'status', 'is_approved']
-        
 
 class JewelryCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,4 +27,4 @@ class MyJewelrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Jewelry
-        fields = ['jewelry_id', 'name', 'description', 'initial_price', 'status', 'status_display', 'is_approved']
+        fields = ['jewelry_id', 'name', 'description', 'initial_price', 'status', 'status_display', 'is_approved', 'is_read']

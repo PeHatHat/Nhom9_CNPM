@@ -12,8 +12,12 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([IsAuthenticated])
 def place_bid(request, auction_id):
     auction = get_object_or_404(Auction, pk=auction_id)
-    
-    serializer = PlaceBidFormSerializer(data=request.data, context={'request': request, 'view': place_bid})
+
+    # Check if the user is the owner of the jewelry
+    if auction.jewelry.owner == request.user:
+        return Response({"detail": "You cannot bid on your own jewelry."}, status=status.HTTP_400_BAD_REQUEST)
+
+    serializer = PlaceBidFormSerializer(data=request.data, context={'request': request, 'view': place_bid})  # Pass the view function, not the class
     if serializer.is_valid():
         try:
             bid = serializer.save(user=request.user, auction=auction)

@@ -14,7 +14,11 @@ File này cung cấp hướng dẫn chi tiết để cài đặt, cấu hình v�
 
 Trên Windows:
 
+Tạo môi trường ảo
+
 `python -m venv .venv`
+
+Kích hoạt môi trường ảo
 
 `.venv\Scripts\activate`
 
@@ -36,25 +40,9 @@ Trên macOS/Linux:
 
 1.Mở MySQL Workbench
 
-2.Kết nối đến MySQL Server.
+2.Kết nối đến MySQL Server và tạo một database mới với tên jewelry_auction ( nếu lần đầu)
 
-Tạo một database mới với tên jewelry_auction ( nếu lần đầu)
-
-##### b. Đồng bộ dữ liệu mẫu
-
-Áp dụng các migrations đó vào database local mỗi khi thay đổi models hoặc lần đầu chạy dự án:
-
-1.`python manage.py makemigrations`
-
-2.`python manage.py migrate`
-
-3.`python manage.py loaddata users.json core.json jewelry.json blog.json auctions.json bids.json` hoặc tự tạo.
-
-Lưu ý: Cần cài biến môi trường cho mySQL.
-
-Nhớ chạy makemigrations(export các models) và migrate(import các models) mỗi khi bạn thay đổi models để giữ cho database và code đồng bộ.
-
-### 5. Cấu Hình settings.py
+3.Cấu Hình settings.py
 
 Mở file jewelry_auction/settings.py.
 
@@ -82,6 +70,20 @@ DATABASES = {
 }
 ```
 
+##### 5. Đồng bộ dữ liệu mẫu
+
+Áp dụng các migrations đó vào database local mỗi khi thay đổi models hoặc lần đầu chạy dự án:
+
+1.`python manage.py makemigrations`
+
+2.`python manage.py migrate`
+
+3.`python manage.py loaddata users.json core.json jewelry.json blog.json auctions.json bids.json` khuyến khích tự tạo.
+
+Lưu ý: Cần cài biến môi trường cho mySQL.
+
+Nhớ chạy makemigrations(export các models) và migrate(import các models) mỗi khi bạn thay đổi models để giữ cho database và code đồng bộ.
+
 Lưu ý:
 
 Thay your_password bằng thông tin đăng nhập MySQL của bạn.
@@ -97,6 +99,10 @@ Mở trình duyệt và truy cập địa chỉ [http://127.0.0.1:8000/] để k
 Đăng nhập vào trang admin [http://127.0.0.1:8000/admin] với tài khoản superuser đã được tạo trong jewelry_auction_data.sql (liên hệ nhóm trưởng để biết thông tin đăng nhập).
 
 ### Front-end
+
+Đọc API document
+
+1.Truy cập vào [http://127.0.0.1:8000/redoc/] hoặc [http://127.0.0.1:8000/swagger/]
 
 tạo và chỉnh sửa các file FE trong thư mục templates:
 

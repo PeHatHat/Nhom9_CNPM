@@ -10,7 +10,7 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register(r'staff', views.StaffJewelryViewSet, basename='staff_jewelry') # Thêm URL cho Staff/Manager duyệt/từ chối trang sức
-router.register(r'', views.JewelryViewSet, basename='jewelry') # giữ nguyên
+router.register(r'staff', views.StaffJewelryViewSet, basename='staff_jewelry')
+router.register(r'', views.JewelryViewSet, basename='jewelry')
 
 urlpatterns += router.urls

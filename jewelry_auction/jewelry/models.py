@@ -21,6 +21,7 @@ class Jewelry(models.Model):
     image_3 = models.ImageField(upload_to='jewelry/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     is_approved = models.BooleanField(default=False)
+    is_read = models.BooleanField(default=False)  # Thêm trường is_read
 
     def __str__(self):
         return self.name
