@@ -25,7 +25,7 @@
         "fields": {
             "title": "Lịch sử của nhẫn đính hôn",
             "content": "Khám phá lịch sử lâu đời và ý nghĩa của nhẫn đính hôn qua các nền văn hóa.",
-            "author": 2,
+            "author": 1,
             "publication_date": "2023-12-24T09:45:00Z"
         }
     },
@@ -35,7 +35,7 @@
         "fields": {
             "title": "Top 5 loại đá quý hợp mệnh cho năm mới",
             "content": "Danh sách 5 loại đá quý mang lại may mắn và tài lộc cho năm mới.",
-            "author": 3,
+            "author": 1,
             "publication_date": "2023-12-23T18:20:00Z"
         }
     },
@@ -45,7 +45,7 @@
         "fields": {
             "title": "Kết hợp trang sức với trang phục công sở",
             "content": "Bí quyết phối hợp trang sức tinh tế và thanh lịch cho phong cách công sở.",
-            "author": 4,
+            "author": 1,
             "publication_date": "2023-12-22T11:10:00Z"
         }
     }

@@ -26,7 +26,7 @@ class JewelryFilter(django_filters.FilterSet):
 
 class JewelryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JewelrySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     filter_backends = [django_filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     filterset_class = JewelryFilter
     ordering_fields = ['initial_price', 'name']

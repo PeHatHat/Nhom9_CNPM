@@ -32,4 +32,7 @@ class UserBidsList(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Bid.objects.filter(user=user).order_by('-timestamp')
+        if user.is_authenticated:
+            return Bid.objects.filter(user=user).order_by('-timestamp')
+        else:
+            return Bid.objects.none()

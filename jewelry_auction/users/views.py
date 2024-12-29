@@ -74,12 +74,23 @@ class UserViewSet(viewsets.ModelViewSet):
 def register(request):
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
-        user = serializer.save()
+        # Lấy giá trị jcoin_balance từ request data (nếu có)
+        jcoin_balance = serializer.validated_data.get('jcoin_balance')
+
+        # Nếu không có jcoin_balance trong request data, mặc định là 0
+        if jcoin_balance is None:
+            jcoin_balance = 0
+
+        # Tạo user với jcoin_balance đã được set (mặc định là 0)
+        user = serializer.save(jcoin_balance=jcoin_balance)
+
+        user.is_active = True
+        user.save()
+        
         login(request, user)
         token = Token.objects.create(user=user) # Tạo token
-        return Response({'user': UserSerializer(user).data, 'token': token.key}, status=status.HTTP_201_CREATED) # Trả về token
+        return Response({'user': UserSerializer(user).data, 'token': token.key}, status=status.HTTP_201_CREATED)
     else:
-        print(serializer.errors)  # Thêm dòng này
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])

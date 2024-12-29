@@ -16,16 +16,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from jewelry.models import Jewelry
 from auctions.models import Auction
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
+from django.shortcuts import render
+
 def home(request):
-    ongoing_auctions = Auction.objects.filter(status='OPEN')
-    sold_jewelry = Jewelry.objects.filter(status='SOLD')
-    data = {
-        'ongoing_auctions': [auction.auction_id for auction in ongoing_auctions],
-        'sold_jewelry': [jewelry.jewelry_id for jewelry in sold_jewelry],
-    }
-    return Response(data)
+    return render(request, 'core/home.html') # Sửa 'core/index.html' nếu bạn dùng template khác
 
 @api_view(['GET', 'PUT'])
 @permission_classes([IsAdminUser])

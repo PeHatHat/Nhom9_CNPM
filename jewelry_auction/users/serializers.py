@@ -9,10 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     password_confirm = serializers.CharField(write_only=True)
+    jcoin_balance = serializers.DecimalField(max_digits=10, decimal_places=2, required=False, default=0)
+    role = serializers.CharField(required=False, default='MEMBER')
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'password', 'password_confirm']
+        fields = ['username', 'first_name', 'last_name', 'password', 'password_confirm', 'jcoin_balance', 'role']
 
     def validate(self, data):
         if data['password'] != data['password_confirm']:
@@ -20,12 +22,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            password=validated_data['password']
-        )
+        validated_data.pop('password_confirm')
+        user = User.objects.create_user(**validated_data)
         return user
 
 class UserLoginSerializer(serializers.Serializer):

@@ -3,11 +3,11 @@
         "model": "auctions.auction",
         "pk": 1,
         "fields": {
-            "jewelry": 1,
+            "jewelry": 5,
             "manager": 2,
             "staff": 3,
-            "start_time": "2024-12-26T00:00:00Z",
-            "end_time": "2024-12-27T13:00:00Z",
+            "start_time": "2024-12-29T13:50:00Z",
+            "end_time": "2024-12-29T22:00:00Z",
             "status": "OPEN"
         }
     },
@@ -30,32 +30,8 @@
             "jewelry": 3,
             "manager": 2,
             "staff": 4,
-            "start_time": "2024-12-27T08:00:00Z",
-            "end_time": "2024-12-29T08:00:00Z",
-            "status": "CREATED"
-        }
-    },
-    {
-        "model": "auctions.auction",
-        "pk": 4,
-        "fields": {
-            "jewelry": 4,
-            "manager": 2,
-            "staff": 3,
-            "start_time": "2024-12-29T10:00:00Z",
-            "end_time": "2024-12-30T10:00:00Z",
-            "status": "CREATED"
-        }
-    },
-    {
-        "model": "auctions.auction",
-        "pk": 5,
-        "fields": {
-            "jewelry": 5,
-            "manager": 2,
-            "staff": null,
-            "start_time": "2024-12-27T14:30:00Z",
-            "end_time": "2024-12-29T14:30:00Z",
+            "start_time": "2024-12-30T08:00:00Z",
+            "end_time": "2024-12-31T08:00:00Z",
             "status": "CREATED"
         }
     }
