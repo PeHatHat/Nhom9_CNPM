@@ -78,7 +78,7 @@ DATABASES = {
 
 2.`python manage.py migrate`
 
-3.`python manage.py loaddata users.json core.json jewelry.json blog.json auctions.json bids.json` khuyến khích tự tạo.
+3.`python manage.py loaddata core.json jewelry.json blog.json auctions.json bids.json` khuyến khích tự tạo.
 
 Lưu ý: Cần cài biến môi trường cho mySQL.
 

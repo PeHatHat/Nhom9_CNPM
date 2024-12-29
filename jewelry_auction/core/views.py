@@ -19,7 +19,7 @@ from auctions.models import Auction
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'core/home.html') # Sửa 'core/index.html' nếu bạn dùng template khác
+    return render(request, 'core/index.html') # Sửa 'core/index.html' nếu bạn dùng template khác
 
 @api_view(['GET', 'PUT'])
 @permission_classes([IsAdminUser])
