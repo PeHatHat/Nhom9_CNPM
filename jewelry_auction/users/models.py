@@ -33,8 +33,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='MEMBER')
     registration_date = models.DateTimeField(auto_now_add=True)
     profile_picture = models.URLField(blank=True, null=True)
