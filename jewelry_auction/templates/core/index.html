@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jewelry Auction</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="icon" href="{% static 'favicon.ico' %}" />
+  </head>
+  <body>
+    <div class="header">
+      <img
+        src="{% static 'media/jewelry/logo.jpg' %}"
+        alt="Jewelry Auction Logo"
+      />
+      <h1>Jewelry Auction</h1>
+      <div class="buttons">
+        <a href="Login-Registeer.html">
+          <button>Account</button>
+        </a>
+      </div>
+    </div>
+    <div class="nav">
+      <a class="active" href="#home" onclick="showSection('home')">Home</a>
+      <a href="#blog" onclick="showSection('blog')">Blog</a>
+      <a href="#jewelry" onclick="showSection('jewelry')">Jewelry</a>
+      <div class="search-container">
+        <input type="text" placeholder="Tìm kiếm..." />
+        <button>Tìm</button>
+      </div>
+    </div>
+    <div id="home" class="section">
+      <div class="image-container">
+        <img
+          alt="Img background"
+          src="{% static 'media/jewelry/img_bg.jpg' %}"
+        />
+        <h2>
+          Welcome to Group 9 <br />
+          Idea 06: Jewelry Auction System
+        </h2>
+      </div>
+    </div>
+    <div id="blog" class="section" style="display: none">
+      <h2>Chào mừng bạn đến với blog!</h2>
+      <p>Khám phá những sản phẩm độc đáo và đặt giá để sở hữu ngay hôm nay.</p>
+      <h3>Bài Viết Mới Nhất</h3>
+      <div class="posts">
+        <div class="post">
+          <h3>Tiêu đề bài viết</h3>
+          <p>Ngày đăng: 29/12/2024</p>
+          <p>Mô tả ngắn về bài viết...</p>
+          <a href="#">Đọc thêm</a>
+        </div>
+        <!-- Thêm các bài viết khác ở đây -->
+      </div>
+    </div>
+    <div id="jewelry" class="section" style="display: none">
+      <h2>Vẻ Đẹp Trường Tồn Trong Từng Thiết Kế</h2>
+      <p>
+        Khám phá bộ sưu tập trang sức độc đáo, nơi sự tinh tế và nghệ thuật hội
+        tụ.
+      </p>
+      <div class="products">
+        <div class="product">
+          <img
+            alt="Dây chuyền cao cấp"
+            src="https://storage.googleapis.com/a1aa/image/Pjatvjfq67QwJ64j73hY5hdWeeOlyWnrDAmjfxO5eP5EUv9fE.jpg"
+          />
+          <h3>Dây Chuyền Kim Cương</h3>
+          <p>Giá: 20,000,000 VND</p>
+        </div>
+        <!-- Thêm các sản phẩm khác ở đây -->
+      </div>
+    </div>
+    <div class="footer">© CNPM_NHOM9 2024. All rights reserved.</div>
+
+    <script>
+      function showSection(section) {
+        const sections = document.querySelectorAll(".section");
+        sections.forEach((sec) => {
+          sec.style.display = "none";
+        });
+        document.getElementById(section).style.display = "block";
+      }
+    </script>
+  </body>
+</html>
