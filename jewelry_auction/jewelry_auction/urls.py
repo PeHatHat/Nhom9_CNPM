@@ -7,10 +7,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from blog.views import BlogViewSet
-# from jewelry.views import JewelryViewSet # Xóa dòng này
+from jewelry.views import JewelryViewSet
 from auctions.views import AuctionList, AuctionDetail, create_auction
 from bids.views import place_bid, UserBidsList
 from users.views import register, user_login, user_logout, profile
+from core.views import home  # Import home view từ core.views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -27,8 +28,6 @@ schema_view = get_schema_view(
 
 router = DefaultRouter()
 router.register(r'blogs', BlogViewSet)
-# Xóa dòng này: 
-# router.register(r'jewelry', JewelryViewSet, basename='jewelry')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,10 +36,11 @@ urlpatterns = [
     path('api/auctions/', include('auctions.urls', namespace='auctions')),
     path('api/bids/', include('bids.urls', namespace='bids')),
     path('api/users/', include('users.urls', namespace='users')),
-    path('api/jewelry/', include('jewelry.urls', namespace='jewelry')), # Giữ nguyên dòng này
+    path('api/jewelry/', include('jewelry.urls', namespace='jewelry')),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('', home, name='home'),  # Thêm dòng này
 ]
 
 if settings.DEBUG:
