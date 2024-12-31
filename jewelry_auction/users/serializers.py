@@ -1,20 +1,24 @@
 from rest_framework import serializers
 from .models import User
+from django.contrib.auth.hashers import make_password
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_id', 'username', 'first_name', 'last_name', 'role', 'jcoin_balance']
+        fields = ['user_id', 'username', 'first_name', 'last_name', 'role', 'jcoin_balance', 'profile_picture']
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     password_confirm = serializers.CharField(write_only=True)
-    jcoin_balance = serializers.DecimalField(max_digits=10, decimal_places=2, required=False, default=0)
-    role = serializers.CharField(required=False, default='MEMBER')
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'password', 'password_confirm', 'jcoin_balance', 'role']
+        fields = ['username', 'first_name', 'last_name', 'password', 'password_confirm']
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Username already exists.")
+        return value
 
     def validate(self, data):
         if data['password'] != data['password_confirm']:
@@ -23,19 +27,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password_confirm')
-        user = User.objects.create_user(**validated_data)
+        validated_data['password'] = make_password(validated_data['password'])
+        user = User.objects.create(**validated_data)
         return user
 
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['user_id', 'username', 'first_name', 'last_name', 'role', 'jcoin_balance', 'is_active', 'is_staff', 'is_superuser']
-
-class UserUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'role', 'jcoin_balance', 'is_active', 'is_staff'] # Các trường Admin có thể cập nhật

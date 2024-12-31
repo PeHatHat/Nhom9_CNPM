@@ -1,16 +1,11 @@
-from django.urls import path, include
 from . import views
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 app_name = 'jewelry'
 
 urlpatterns = [
-    path('create/', views.create_jewelry, name='create_jewelry'),
-    path('my-jewelry/', views.MyJewelryList.as_view(), name='my_jewelry'),
+    path('', views.JewelryViewSet.as_view({'get': 'list'}), name='jewelry-list'),
+    path('<int:pk>/', views.JewelryViewSet.as_view({'get': 'retrieve'}), name='jewelry-detail'),
+    path('create/', views.JewelryViewSet.as_view({'post': 'create'}), name='jewelry-create'),
+    path('my-jewelry/', views.JewelryViewSet.as_view({'get': 'my_jewelry'}), name='my-jewelry'),
 ]
-
-router = DefaultRouter()
-router.register(r'staff', views.StaffJewelryViewSet, basename='staff_jewelry')
-router.register(r'', views.JewelryViewSet, basename='jewelry')
-
-urlpatterns += router.urls

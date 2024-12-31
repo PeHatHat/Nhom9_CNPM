@@ -1,102 +1,100 @@
-from rest_framework import viewsets, filters, status, generics
+from rest_framework import viewsets, filters, status
 from .models import Jewelry
-from .serializers import JewelrySerializer, JewelryCreateSerializer, MyJewelrySerializer
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from .serializers import JewelrySerializer, JewelryCreateSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 from django.db.models import Q
-from django_filters import rest_framework as django_filters
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes, action
+from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from .permissions import IsStaffUser, IsManagerUser
+from django.views.decorators.csrf import csrf_exempt
 
+# Tạo class check quyền cho từng action
+class IsOwnerOrStaff(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # Kiểm tra xem user có phải là owner của object hay không
+        return obj.owner == request.user or request.user.role in ['STAFF', 'MANAGER']
+        
 class JewelryPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 100
 
-class JewelryFilter(django_filters.FilterSet):
-    class Meta:
-        model = Jewelry
-        fields = {
-            'name': ['icontains'],
-            'status': ['exact'],
-            'is_approved': ['exact'],
-        }
-
-class JewelryViewSet(viewsets.ReadOnlyModelViewSet):
+class JewelryViewSet(viewsets.ModelViewSet):  # Kế thừa từ ModelViewSet
     serializer_class = JewelrySerializer
-    permission_classes = [AllowAny]
-    filter_backends = [django_filters.DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    filterset_class = JewelryFilter
-    ordering_fields = ['initial_price', 'name']
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['name']
+    ordering_fields = ['initial_price', 'name']
     pagination_class = JewelryPagination
 
     def get_queryset(self):
-        queryset = Jewelry.objects.all()
-        return queryset
+        # print("DEBUG: JewelryViewSet get_queryset called")
+        queryset = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS'])
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_jewelry(request):
-    if request.user.role not in ['MEMBER', 'ADMIN']:
-        return Response({"detail": "You are not authorized to create jewelry."}, status=status.HTTP_403_FORBIDDEN)
+        ordering = self.request.query_params.get('sort')
+        if ordering:
+            if ordering.startswith('-'):
+                queryset = queryset.order_by(ordering)
+            else:
+                queryset = queryset.order_by(ordering)
 
-    serializer = JewelryCreateSerializer(data=request.data)
-    if serializer.is_valid():
-        jewelry = serializer.save(owner=request.user, status='PENDING')
-        return Response(JewelrySerializer(jewelry).data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class StaffJewelryViewSet(viewsets.ViewSet):
-    permission_classes = [IsAdminUser | IsStaffUser | IsManagerUser]
-
-    @action(detail=True, methods=['POST'])
-    def approve(self, request, pk=None):
-        jewelry = get_object_or_404(Jewelry, pk=pk)
-        if request.user.role not in ['STAFF', 'MANAGER', 'ADMIN']:
-            return Response({"detail": "You are not authorized to approve jewelry."}, status=status.HTTP_403_FORBIDDEN)
-
-        if jewelry.status != 'PENDING':
-            return Response({"detail": "This jewelry is not pending approval."}, status=status.HTTP_400_BAD_REQUEST)
-
-        jewelry.is_approved = True
-        jewelry.status = 'APPROVED'
-        jewelry.is_read = False  # Member chưa đọc thông báo
-        jewelry.save()
-
-        return Response({"message": "Jewelry approved"})
-
-    @action(detail=True, methods=['POST'])
-    def reject(self, request, pk=None):
-        # ... (tương tự như approve, nhưng set is_approved = False, status = 'REJECTED', is_read = False)
-        jewelry = get_object_or_404(Jewelry, pk=pk)
-        
-        # Check if the user is authorized
-        if request.user.role not in ['STAFF', 'MANAGER', 'ADMIN']:
-            return Response({"detail": "You are not authorized to approve jewelry."}, status=status.HTTP_403_FORBIDDEN)
-
-        if jewelry.status != 'PENDING':
-            return Response({"detail": "This jewelry is not pending approval."}, status=status.HTTP_400_BAD_REQUEST)
-
-        jewelry.is_approved = False
-        jewelry.status = 'REJECTED'
-        jewelry.is_read = False
-        jewelry.save()
-
-        return Response({"message": "Jewelry rejected"})
-
-class MyJewelryList(generics.ListAPIView):
-    serializer_class = MyJewelrySerializer
-    permission_classes = [IsAuthenticated]
-    pagination_class = JewelryPagination
-
-    def get_queryset(self):
-        user = self.request.user
-        queryset = Jewelry.objects.filter(owner=user)
-
-        # Đánh dấu tất cả thông báo là đã đọc khi user xem danh sách
-        queryset.filter(is_read=False).update(is_read=True)
+        search_query = self.request.query_params.get('search', None)
+        if search_query:
+            queryset = queryset.filter(Q(name__icontains=search_query))
 
         return queryset
+
+    def get_permissions(self):
+        if self.action == 'list' or self.action == 'retrieve':
+            permission_classes = [AllowAny]
+        elif self.action == 'create':
+            permission_classes = [IsAuthenticated]
+        elif self.action == 'update' or self.action == 'partial_update' or self.action == 'destroy':
+            permission_classes = [IsAuthenticated, IsOwnerOrStaff]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return JewelryCreateSerializer
+        return JewelrySerializer
+
+    def list(self, request, *args, **kwargs):
+        # print("DEBUG: JewelryViewSet list called")
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        # print(f"DEBUG: Serialized Data: {serializer.data}")
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def my_jewelry(self, request):
+        # print("DEBUG: JewelryViewSet my_jewelry called")
+        user = request.user
+        # print(f"DEBUG: User: {user}")
+        # print(f"DEBUG: User ID: {user.user_id}")
+        # print(f"DEBUG: User PK: {user.pk}")
+        # print(f"DEBUG: Username: {user.username}")
+        user_jewelry = Jewelry.objects.filter(owner=user)
+        # print(f"DEBUG: User Jewelry Queryset: {user_jewelry}")
+        # print(f"DEBUG: User Jewelry Count: {user_jewelry.count()}")
+        serializer = self.get_serializer(user_jewelry, many=True)
+        # print(f"DEBUG: Serialized Data: {serializer.data}")
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @csrf_exempt
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        serializer.save()

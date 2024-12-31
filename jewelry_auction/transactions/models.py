@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 from auctions.models import Auction
+from django.core.exceptions import ValidationError
 
 class Transaction(models.Model):
     STATUS_CHOICES = (
@@ -22,13 +23,16 @@ class Transaction(models.Model):
         return f"Transaction {self.transaction_id} for {self.auction}"
 
     def save(self, *args, **kwargs):
-        if self.pk is None:  # Chỉ tính toán khi tạo mới
-            if self.auction and self.auction.status == 'CLOSED':
-                highest_bid = self.auction.bids.order_by('-amount').first()
-                if highest_bid:
-                    from core.models import FeeConfiguration
-                    fee_config = FeeConfiguration.objects.first()
-                    if fee_config:
-                        self.amount = highest_bid.amount
-                        self.fee = self.amount * fee_config.fee_rate
+        from core.models import FeeConfiguration
+        # Chỉ tính toán khi tạo mới và auction đã đóng
+        if self.pk is None and self.auction and self.auction.status == 'CLOSED':
+            highest_bid = self.auction.bids.order_by('-amount').first()
+            if highest_bid:
+                fee_config = FeeConfiguration.objects.first()
+                if fee_config:
+                    self.amount = highest_bid.amount
+                    self.fee = self.amount * fee_config.fee_rate
+                else:
+                    raise ValidationError("Fee configuration not found.")
+
         super(Transaction, self).save(*args, **kwargs)

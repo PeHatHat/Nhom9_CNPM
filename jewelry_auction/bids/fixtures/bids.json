@@ -1,0 +1,12 @@
+[
+    {
+        "model": "bids.bid",
+        "pk": 1,
+        "fields": {
+            "auction": 2,
+            "user": 2,
+            "amount": "330.00",
+            "timestamp": "2024-12-30T23:30:00Z"
+        }
+    }
+]

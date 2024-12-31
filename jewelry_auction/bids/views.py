@@ -7,23 +7,24 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 from django.core.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
+from django.db import transaction
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import AnonymousUser
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def place_bid(request, auction_id):
     auction = get_object_or_404(Auction, pk=auction_id)
 
-    # Check if the user is the owner of the jewelry
-    if auction.jewelry.owner == request.user:
-        return Response({"detail": "You cannot bid on your own jewelry."}, status=status.HTTP_400_BAD_REQUEST)
-
-    serializer = PlaceBidFormSerializer(data=request.data, context={'request': request, 'view': place_bid})  # Pass the view function, not the class
+    serializer = PlaceBidFormSerializer(data=request.data, context={'request': request}) # Sửa lại dòng này
     if serializer.is_valid():
-        try:
-            bid = serializer.save(user=request.user, auction=auction)
-            return Response({"message": "Your bid has been placed successfully.", "bid_amount": bid.amount}, status=status.HTTP_201_CREATED)
-        except ValidationError as e:
-            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        with transaction.atomic():
+            try:
+                bid = serializer.save(user=request.user, auction=auction)
+                return Response({"message": "Your bid has been placed successfully.", "bid_amount": bid.amount}, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserBidsList(generics.ListAPIView):
@@ -32,7 +33,14 @@ class UserBidsList(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_authenticated:
-            return Bid.objects.filter(user=user).order_by('-timestamp')
-        else:
+        print(f"DEBUG: User: {user}")
+        if isinstance(user, AnonymousUser):
+            print("DEBUG: User is AnonymousUser")
             return Bid.objects.none()
+        else:
+            print(f"DEBUG: User ID: {user.user_id}")
+            print(f"DEBUG: Username: {user.username}")
+            queryset = Bid.objects.filter(user=user).order_by('-timestamp')
+            print(f"DEBUG: Queryset: {queryset}")
+            print(f"DEBUG: Queryset Count: {queryset.count()}")
+            return queryset
