@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 from auctions.models import Auction
 from django.core.exceptions import ValidationError
+from django.db.models import Max
 
 class Bid(models.Model):
     bid_id = models.AutoField(primary_key=True)
@@ -13,18 +14,23 @@ class Bid(models.Model):
     def __str__(self):
         return f"Bid {self.bid_id} by {self.user.username} on {self.auction}"
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # Kiểm tra nếu người dùng đang cố gắng đặt giá thầu cho chính mình
         if self.user == self.auction.jewelry.owner:
             raise ValidationError("You cannot bid on your own jewelry.")
 
         # Kiểm tra nếu giá thầu thấp hơn giá khởi điểm
+        if self.auction.jewelry.initial_price is None:
+          raise ValidationError("Initial Price is not set yet")
+
         if self.amount < self.auction.jewelry.initial_price:
             raise ValidationError("Bid amount must be greater than or equal to the initial price.")
 
         # Kiểm tra nếu giá thầu thấp hơn giá thầu cao nhất hiện tại
-        highest_bid = Bid.objects.filter(auction=self.auction).order_by('-amount').first()
-        if highest_bid and self.amount <= highest_bid.amount:
+        highest_bid = Bid.objects.filter(auction=self.auction).aggregate(Max('amount'))['amount__max']
+        if highest_bid is not None and self.amount <= highest_bid:
             raise ValidationError("Bid amount must be greater than the current highest bid.")
 
+    def save(self, *args, **kwargs):
+        self.full_clean()
         super(Bid, self).save(*args, **kwargs)

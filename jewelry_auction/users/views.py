@@ -7,19 +7,18 @@ from .models import User
 from .serializers import UserSerializer, UserRegistrationSerializer, UserLoginSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
+from django.db import transaction
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
-    serializer = UserRegistrationSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
-        login(request, user)
-        token = Token.objects.create(user=user) # Tạo token
-        return Response({'user': UserSerializer(user).data, 'token': token.key}, status=status.HTTP_201_CREATED) # Trả về token
-    else:
-        print(serializer.errors)  # Thêm dòng này
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    with transaction.atomic():
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -29,8 +28,8 @@ def user_login(request):
         user = authenticate(request, username=serializer.validated_data['username'], password=serializer.validated_data['password'])
         if user:
             login(request, user)
-            token, created = Token.objects.get_or_create(user=user) # Lấy hoặc tạo token
-            return Response({'user': UserSerializer(user).data, 'token': token.key}, status=status.HTTP_200_OK) # Trả về token
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'user': UserSerializer(user).data, 'token': token.key}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -38,6 +37,7 @@ def user_login(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def user_logout(request):
+    request.user.auth_token.delete()
     logout(request)
     return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 

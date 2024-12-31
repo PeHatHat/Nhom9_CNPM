@@ -22,12 +22,10 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
                 queryset = queryset.order_by(ordering)
             else:
                 queryset = queryset.order_by(ordering)
-            print("After ordering:", str(queryset.query))
 
         # Apply search filter
         search_query = self.request.query_params.get('search', None)
         if search_query:
             queryset = queryset.filter(Q(title__icontains=search_query))
-            print("After searching:", str(queryset.query))
 
         return queryset

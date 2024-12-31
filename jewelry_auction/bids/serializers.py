@@ -14,7 +14,8 @@ class PlaceBidFormSerializer(serializers.ModelSerializer):
         fields = ['amount']
 
     def validate(self, data):
-        auction_id = self.context['view'].kwargs.get('auction_id')
+        # Lấy auction_id thông qua request.parser_context
+        auction_id = self.context['request'].parser_context['kwargs'].get('auction_id')
         auction = Auction.objects.get(pk=auction_id)
         
         # Kiểm tra nếu phiên đấu giá đã kết thúc

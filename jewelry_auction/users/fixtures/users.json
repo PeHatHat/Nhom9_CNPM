@@ -3,90 +3,64 @@
         "model": "users.user",
         "pk": 1,
         "fields": {
-            "password": "pbkdf2_sha256$390000$l5hMgx595lOM$L7HCMB4sF+D15c9tx4/jkRx+q/j8RvapP/XU9/J6VjE=",
-            "last_login": null,
-            "is_superuser": true,
             "username": "admin",
+            "password": "pbkdf2_sha256$600000$your_hashed_password$your_salt+your_hashed_password",
             "first_name": "Admin",
             "last_name": "User",
             "role": "ADMIN",
-            "registration_date": "2023-12-23T00:00:00Z",
-            "profile_picture": null,
-            "jcoin_balance": "100000000.00",
+            "jcoin_balance": "0.00",
             "is_active": true,
-            "is_staff": true
+            "is_staff": true,
+            "is_superuser": true,
+            "registration_date": "2024-12-30T15:30:00Z"
         }
     },
     {
         "model": "users.user",
         "pk": 2,
         "fields": {
-            "password": "pbkdf2_sha256$390000$l5hMgx595lOM$L7HCMB4sF+D15c9tx4/jkRx+q/j8RvapP/XU9/J6VjE=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "manager1",
-            "first_name": "Manager",
+            "username": "member1",
+            "password": "pbkdf2_sha256$600000$your_hashed_password$your_salt+your_hashed_password",
+            "first_name": "Member",
             "last_name": "One",
-            "role": "MANAGER",
-            "registration_date": "2023-12-23T00:00:00Z",
-            "profile_picture": null,
-            "jcoin_balance": "5000.00",
+            "role": "MEMBER",
+            "jcoin_balance": "1000.00",
             "is_active": true,
-            "is_staff": true
+            "is_staff": false,
+            "is_superuser": false,
+            "registration_date": "2024-12-24T10:00:00Z"
         }
     },
     {
         "model": "users.user",
         "pk": 3,
         "fields": {
-            "password": "pbkdf2_sha256$390000$l5hMgx595lOM$L7HCMB4sF+D15c9tx4/jkRx+q/j8RvapP/XU9/J6VjE=",
-            "last_login": null,
-            "is_superuser": false,
             "username": "staff1",
+            "password": "pbkdf2_sha256$720000$hMCTfV4xRj6oJ5YaW50lX5$Kx4aA8Gk4/Gq4/B6e6Y9X+vMv4h1s3bJ5mfrGfB7Roc=",
             "first_name": "Staff",
             "last_name": "One",
             "role": "STAFF",
-            "registration_date": "2023-12-23T00:00:00Z",
-            "profile_picture": null,
-            "jcoin_balance": "1000.00",
+            "jcoin_balance": "0.00",
             "is_active": true,
-            "is_staff": true
+            "is_staff": true,
+            "is_superuser": false,
+            "registration_date": "2024-12-28T12:30:00Z"
         }
     },
     {
         "model": "users.user",
         "pk": 4,
         "fields": {
-            "password": "pbkdf2_sha256$390000$l5hMgx595lOM$L7HCMB4sF+D15c9tx4/jkRx+q/j8RvapP/XU9/J6VjE=",
-            "last_login": null,
-            "is_superuser": false,
-            "username": "member1",
-            "first_name": "Member",
+            "username": "manager1",
+            "password": "pbkdf2_sha256$720000$7xCEjV7oR6JgX9hQ4P5sH3$0Yfvr1v/c6U+h/B6e6Y9X+vMv4h1s3bJ5mfrGfB7Roc=",
+            "first_name": "Manager",
             "last_name": "One",
-            "role": "MEMBER",
-            "registration_date": "2023-12-23T00:00:00Z",
-            "profile_picture": null,
-            "jcoin_balance": "10000.00",
+            "role": "MANAGER",
+            "jcoin_balance": "0.00",
             "is_active": true,
-            "is_staff": false
-        }
-    },
-    {
-        "model": "users.user",
-        "pk": 5,
-        "fields": {
-            "password": "pbkdf2_sha256$390000$swFycGg9fW6y$F2/8dpGf51qjJfV5bJk5jR9y9gOvuA/l4f2IW9Sw9XU=",
-            "last_login": null,
+            "is_staff": true,
             "is_superuser": false,
-            "username": "member2",
-            "first_name": "Member",
-            "last_name": "Two",
-            "role": "MEMBER",
-            "registration_date": "2023-12-23T00:00:00Z",
-            "profile_picture": null,
-            "jcoin_balance": "200000.00",
-            "is_active": true,
-            "is_staff": false
+            "registration_date": "2024-12-27T09:45:00Z"
         }
     }
 ]
