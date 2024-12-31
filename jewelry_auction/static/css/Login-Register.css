@@ -19,6 +19,19 @@ body {
   border-radius: 10px;
   margin-right: 15px;
 }
+.buttons {
+  margin-left: auto; /* Đẩy nút Home sang bên phải */
+}
+
+.buttons i {
+  color: green;
+  text-decoration: none;
+  font-size: 50px;
+}
+
+.buttons a:hover {
+  color: #ddd;
+}
 
 .nav {
   display: flex;
@@ -103,4 +116,18 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho khung */
   margin: 20px auto; /* Căn giữa khung */
   max-width: 450px; /* Giới hạn chiều rộng tối đa */
+}
+.header a {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 24px;
+}
+
+.header a:hover {
+  color: #ddd;
+}
+/* Trong file Login-Register.css */
+.buttons a[href="Login-Register.html"] {
+  display: none; /* Ẩn nút Account */
 }

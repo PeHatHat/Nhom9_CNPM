@@ -82,7 +82,6 @@ body {
   flex-wrap: wrap;
 }
 
-.images img,
 .products img {
   width: 100px; /* Đặt chiều rộng ảnh là 100% để gần tràn màn hình */
   height: 100px; /* Giữ tỷ lệ khung hình */
@@ -137,7 +136,7 @@ body {
 .image-container img {
   width: 100%; /* Đặt chiều rộng ảnh là 100% để gần tràn màn hình */
   height: auto; /* Giữ tỷ lệ khung hình */
-  border-radius: 15px; /* Bo góc cho ảnh */
+  border-radius: 0px;
 }
 
 .image-container h2 {
