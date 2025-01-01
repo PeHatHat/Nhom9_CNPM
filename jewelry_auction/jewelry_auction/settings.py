@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jewelry_auction',  # Tên database
         'USER': 'root',  # Username MySQL của bạn
-        'PASSWORD': '@Phh27102005',  # Password MySQL của bạn
+        'PASSWORD': 'Your_pass',  # Password MySQL của bạn
         'HOST': 'localhost',  # Hoặc IP address của MySQL server
         'PORT': '3306',  # Cổng mặc định của MySQL
     }

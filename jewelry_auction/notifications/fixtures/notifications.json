@@ -1,0 +1,22 @@
+[
+    {
+        "model": "notifications.notification",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "message": "Giá thầu của bạn cho trang sức 'Dây Chuyền Vàng' đã bị vượt qua. Giá thầu mới nhất là 350.00 JCoins.",
+            "is_read": false,
+            "created_at": "2025-01-01T08:10:01Z"
+        }
+    },
+    {
+        "model": "notifications.notification",
+        "pk": 2,
+        "fields": {
+            "user": 5,
+            "message": "Bạn đã đặt giá thầu thành công cho trang sức 'Dây Chuyền Vàng' với giá 350.00 JCoins.",
+            "is_read": false,
+            "created_at": "2025-01-01T08:10:01Z"
+        }
+    }
+]

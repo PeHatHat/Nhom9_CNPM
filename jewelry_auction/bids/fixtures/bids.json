@@ -3,10 +3,20 @@
         "model": "bids.bid",
         "pk": 1,
         "fields": {
-            "auction": 2,
+            "auction": 3,
             "user": 2,
             "amount": "330.00",
-            "timestamp": "2024-12-30T23:30:00Z"
+            "timestamp": "2024-12-30T10:00:00Z"
+        }
+    },
+    {
+        "model": "bids.bid",
+        "pk": 2,
+        "fields": {
+            "auction": 2,
+            "user": 5,
+            "amount": "350.00",
+            "timestamp": "2025-01-01T08:10:00Z"
         }
     }
 ]
