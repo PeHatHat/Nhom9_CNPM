@@ -237,7 +237,7 @@
             * Thiếu trường dữ liệu: `400 Bad Request`.
             * `initial_price` không hợp lệ: `400 Bad Request`.
 
-4. **`GET /api/jewelry/my-jewelry/` (Lấy danh sách trang sức của user):**
+4. **`GET /api/jewelry/my_jewelry/` (Lấy danh sách trang sức của user):**
 
     * **Method:** `GET`
     * **URL:** `http://127.0.0.1:8000/api/jewelry/my-jewelry/`

@@ -19,10 +19,11 @@ def register(request):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+            token, created = Token.objects.get_or_create(user=user)  # Tạo hoặc lấy token
+            return Response({'user': UserSerializer(user).data, 'token': token.key}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def user_login(request):

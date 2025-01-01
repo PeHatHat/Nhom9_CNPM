@@ -31,7 +31,6 @@ schema_view = get_schema_view(
 router = DefaultRouter()
 router.register(r'blogs', BlogViewSet)
 router.register(r'auctions', AuctionViewSet, basename='auction')
-router.register(r'users', UserViewSet, basename='user')
 router.register(r'fee-configuration', FeeConfigurationViewSet, basename='fee-configuration')
 router.register(r'transactions', TransactionViewSet, basename='transaction')
 
