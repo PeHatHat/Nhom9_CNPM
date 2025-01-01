@@ -38,15 +38,17 @@ class JewelryViewSet(viewsets.ModelViewSet):
     pagination_class = JewelryPagination
 
     def get_queryset(self):
-        # Lọc các trang sức dựa trên vai trò của người dùng
-        if self.request.user.role in ['STAFF', 'MANAGER']:
-            if self.request.query_params.get('is_approved') == 'false':
-                queryset = Jewelry.objects.filter(status='PENDING')
+        if self.request.user.is_authenticated:
+            if self.request.user.role in ['STAFF', 'MANAGER']:
+                if self.request.query_params.get('is_approved') == 'false':
+                    queryset = Jewelry.objects.filter(status='PENDING')
+                else:
+                    queryset = Jewelry.objects.all()
             else:
-                queryset = Jewelry.objects.all()
+                queryset = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS'])
         else:
+            # Nếu người dùng chưa đăng nhập, chỉ hiển thị các trang sức đã được duyệt, đang đấu giá hoặc chưa có bid
             queryset = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS'])
-
         # Các phần lọc khác
         ordering = self.request.query_params.get('sort')
         if ordering:
@@ -54,7 +56,9 @@ class JewelryViewSet(viewsets.ModelViewSet):
                 queryset = queryset.order_by(ordering)
             else:
                 queryset = queryset.order_by(ordering)
-
+        else:
+            queryset = queryset.order_by('-jewelry_id') # Thêm dòng này để có thứ tự mặc định
+            
         search_query = self.request.query_params.get('search', None)
         if search_query:
             queryset = queryset.filter(Q(name__icontains=search_query))
