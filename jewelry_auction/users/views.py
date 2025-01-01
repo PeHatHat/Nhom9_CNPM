@@ -22,7 +22,7 @@ def register(request):
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def user_login(request):
