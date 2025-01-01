@@ -5,21 +5,9 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.models import F
 from core.models import FeeConfiguration
+from notifications.models import Notification
 
 class Auction(models.Model):
-    """
-    Model representing an auction session.
-
-    Fields:
-        - auction_id: Primary key.
-        - jewelry: The jewelry being auctioned (ForeignKey to Jewelry).
-        - manager: User managing the auction (ForeignKey to User, optional).
-        - staff: Staff assigned to the auction (ForeignKey to User, optional).
-        - start_time: Auction start time.
-        - end_time: Auction end time.
-        - status: Current status of the auction (Created, Open, Closed, Canceled).
-        - winning_bid: The winning bid (OneToOneField to Bid, optional).
-    """
     STATUS_CHOICES = (
         ('CREATED', 'Created'),
         ('OPEN', 'Open'),
@@ -48,6 +36,7 @@ class Auction(models.Model):
             self.save()
 
     def close_auction(self):
+        from bids.models import Bid
         if self.status == 'OPEN' and self.end_time <= timezone.now():
             self.status = 'CLOSED'
             highest_bid = self.bids.order_by('-amount').first()
@@ -84,6 +73,25 @@ class Auction(models.Model):
 
                     auction_jewelry.owner.jcoin_balance = F('jcoin_balance') + (transaction_amount - fee)
                     auction_jewelry.owner.save()
+
+                    # Tạo thông báo cho người thắng cuộc
+                    Notification.objects.create(
+                        user=highest_bid.user,
+                        message=f"Chúc mừng! Bạn đã thắng đấu giá trang sức '{auction_jewelry.name}' với giá {highest_bid.amount} JCoins."
+                    )
+
+                    # Tạo thông báo cho người bán
+                    Notification.objects.create(
+                        user=auction_jewelry.owner,
+                        message=f"Trang sức '{auction_jewelry.name}' của bạn đã được bán đấu giá thành công với giá {highest_bid.amount} JCoins."
+                    )
+                    # Gửi thông báo cho những người đã tham gia đấu giá nhưng không thắng cuộc
+                    bidders = Bid.objects.filter(auction=self).exclude(user=highest_bid.user).values_list('user', flat=True).distinct()
+                    for bidder_id in bidders:
+                        Notification.objects.create(
+                            user_id=bidder_id,
+                            message=f"Phiên đấu giá cho trang sức '{auction_jewelry.name}' đã kết thúc. Rất tiếc bạn không phải là người chiến thắng."
+                        )
                 else:
                     # Xử lý trường hợp không tìm thấy FeeConfiguration
                     raise ValidationError("Fee configuration not found.")
@@ -92,7 +100,13 @@ class Auction(models.Model):
                 auction_jewelry = self.jewelry
                 auction_jewelry.status = 'NO_BIDS'
                 auction_jewelry.save()
+
+                # Tạo thông báo cho người bán
+                Notification.objects.create(
+                    user=auction_jewelry.owner,
+                    message=f"Phiên đấu giá cho trang sức '{auction_jewelry.name}' của bạn đã kết thúc mà không có người đặt giá."
+                )
         elif self.status != 'OPEN':
-          raise ValidationError("Auction is not open.")
+            raise ValidationError("Auction is not open.")
         else:
-          raise ValidationError("Auction has not ended yet.")
+            raise ValidationError("Auction has not ended yet.")

@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 class JewelrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Jewelry
-        fields = ['jewelry_id', 'name', 'description', 'owner', 'initial_price', 'image_1', 'image_2', 'image_3', 'status']
+        fields = ['jewelry_id', 'name', 'description', 'owner', 'initial_price', 'image_1', 'image_2', 'image_3', 'status', 'preliminary_price', 'final_price', 'received_at', 'seller_approved']
         read_only_fields = ['owner']
 
 class JewelryCreateSerializer(serializers.ModelSerializer):

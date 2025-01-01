@@ -1,10 +1,14 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
 app_name = 'auctions'
 
+router = DefaultRouter()
+router.register(r'', views.AuctionViewSet, basename='auction')
+
 urlpatterns = [
-    path('', views.AuctionList.as_view(), name='auction_list'),
-    path('<int:pk>/', views.AuctionDetail.as_view(), name='auction_detail'),
-    path('create/<int:jewelry_id>/', views.create_auction, name='create_auction'),
+    path('', include(router.urls)),
+    path('create/<int:jewelry_id>/', views.AuctionViewSet.as_view({'post': 'create'}), name='auction-create'),
+    path('<int:pk>/cancel/', views.AuctionViewSet.as_view({'patch': 'cancel_auction'}), name='auction-cancel'),
 ]

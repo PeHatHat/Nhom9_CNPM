@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
+    'notifications',
     'django_extensions', # Thêm django-extensions
     'users',
     'jewelry',
@@ -88,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jewelry_auction',  # Tên database
         'USER': 'root',  # Username MySQL của bạn
-        'PASSWORD': 'your_pass',  # Password MySQL của bạn
+        'PASSWORD': '@Phh27102005',  # Password MySQL của bạn
         'HOST': 'localhost',  # Hoặc IP address của MySQL server
         'PORT': '3306',  # Cổng mặc định của MySQL
     }

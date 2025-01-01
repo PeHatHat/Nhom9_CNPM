@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Bid
-from auctions.models import Auction
 from django.core.exceptions import ValidationError
 
 class BidSerializer(serializers.ModelSerializer):
@@ -14,10 +13,18 @@ class PlaceBidFormSerializer(serializers.ModelSerializer):
         fields = ['amount']
 
     def validate(self, data):
-        # Lấy auction_id thông qua request.parser_context
+        # Lấy auction_id từ request
         auction_id = self.context['request'].parser_context['kwargs'].get('auction_id')
-        auction = Auction.objects.get(pk=auction_id)
-        
+        if not auction_id:
+            raise ValidationError("Missing auction ID in request.")
+
+        # Lấy model Auction từ model Bid
+        Auction = self.Meta.model.auction.field.related_model
+        try:
+            auction = Auction.objects.get(pk=auction_id)
+        except Auction.DoesNotExist:
+            raise ValidationError("Auction with this ID does not exist.")
+
         # Kiểm tra nếu phiên đấu giá đã kết thúc
         if auction.status != 'OPEN':
             raise serializers.ValidationError("This auction is not open for bidding.")
@@ -25,7 +32,7 @@ class PlaceBidFormSerializer(serializers.ModelSerializer):
         # Kiểm tra nếu người dùng không đủ JCoin
         if self.context['request'].user.jcoin_balance < data['amount']:
             raise serializers.ValidationError("You don't have enough JCoins to place this bid.")
-        
+
         # Kiểm tra nếu user hiện tại đã đặt giá cao nhất
         highest_bid = Bid.objects.filter(auction=auction).order_by('-amount').first()
         if highest_bid and highest_bid.user == self.context['request'].user:

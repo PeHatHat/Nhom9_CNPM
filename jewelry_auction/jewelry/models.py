@@ -22,6 +22,10 @@ class Jewelry(models.Model):
     image_2 = models.ImageField(upload_to='jewelry/', blank=True, null=True)
     image_3 = models.ImageField(upload_to='jewelry/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
+    preliminary_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True) # Thêm dòng này
+    final_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True) # Thêm dòng này
+    received_at = models.DateTimeField(null=True, blank=True) # Thêm dòng này
+    seller_approved = models.BooleanField(default=False) # Thêm dòng này
 
     def __str__(self):
         return self.name

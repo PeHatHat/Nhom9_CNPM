@@ -1,12 +1,11 @@
 from django.db import models
 from users.models import User
-from auctions.models import Auction
 from django.core.exceptions import ValidationError
 from django.db.models import Max
 
 class Bid(models.Model):
     bid_id = models.AutoField(primary_key=True)
-    auction = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='bids')
+    auction = models.ForeignKey('auctions.Auction', on_delete=models.CASCADE, related_name='bids')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bids')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
