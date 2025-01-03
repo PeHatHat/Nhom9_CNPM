@@ -1,100 +1,17 @@
-<!DOCTYPE html>
-<html lang="vi">
-  <head>
-    {%load static%}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jewelry Auction</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-    <link rel="icon" href="{% static '/favicon.ico' %}" />
-  </head>
-  <body>
-    <div class="header">
-      <img
-        src="{% static 'media/jewelry/logo.jpg' %}"
-        alt="Jewelry Auction Logo"
-      />
-      <h1>Jewelry Auction</h1>
-      <div class="buttons">
-        <a href="{% template 'core/Login-Register.html'}">
-          <button>Account</button>
-        </a>
-      </div>
-    </div>
-    <div class="nav">
-      <a class="active" href="#home" onclick="showSection('home')">Home</a>
-      <a href="#blog" onclick="showSection('blog')">Blog</a>
-      <a href="#jewelry" onclick="showSection('jewelry')">Jewelry</a>
-      <div class="search-container">
-        <input type="text" placeholder="Tìm kiếm..." />
-        <button>Tìm</button>
-      </div>
-    </div>
-    <div id="home" class="section">
-      <div class="image-container">
-        <img
-          alt="Img background"
-          src="{% static 'media/jewelry/img_bg.jpg' %}"
-        />
-        <h2>
-          Welcome to Group 9 <br />
-          Idea 06: Jewelry Auction System
-        </h2>
-      </div>
-    </div>
-    <div id="blog" class="section" style="display: none">
-      <h2>Chào mừng bạn đến với blog!</h2>
-      <p>Khám phá những sản phẩm độc đáo và đặt giá để sở hữu ngay hôm nay.</p>
-      <h3>Bài Viết Mới Nhất</h3>
-      <div class="posts" id="blog-posts">
-        {% for post in blog_posts %}
-        <div class="post">
-          <h3>{{ post.title }}</h3>
-          <p>Ngày đăng: {{ post.publication_date|date:"d/m/Y" }}</p>
-          <p>{{ post.content|truncatechars:100 }}</p>
-          <a href="#">Đọc thêm</a>
-        </div>
-        {% empty %}
-        <p>Không có bài viết nào.</p>
-        {% endfor %}
-      </div>
-    </div>
-    <div id="jewelry" class="section" style="display: none">
-      <h2>Vẻ Đẹp Trường Tồn Trong Từng Thiết Kế</h2>
-      <p>
-        Khám phá bộ sưu tập trang sức độc đáo, nơi sự tinh tế và nghệ thuật hội
-        tụ.
-      </p>
-      <div class="products" id="jewelry-products">
-        {% for product in jewelry_products %}
-        <div class="product">
-          <img src="{{ product.image_1.url }}" alt="{{ product.name }}" />
-          <h3>{{ product.name }}</h3>
-          <p>Giá: {{ product.initial_price }} Jcoin</p>
-        </div>
-        {% empty %}
-        <p>Không có sản phẩm nào.</p>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="footer">© CNPM_NHOM9 2024. All rights reserved.</div>
+{% extends 'base.html' %}
 
-    <script>
-      function showSection(section) {
-        const sections = document.querySelectorAll(".section");
-        sections.forEach((sec) => {
-          sec.style.display = "none";
-        });
-        document.getElementById(section).style.display = "block";
-      }
-      // Kích hoạt section 'home' khi trang được tải
-      document.addEventListener("DOMContentLoaded", function () {
-        showSection("home");
-      });
-    </script>
-  </body>
-</html>
+{% block content %}
+    <h1>Trang chủ</h1>
+
+    <h2>Giới thiệu công ty</h2>
+    <p>
+        (Nội dung giới thiệu công ty đấu giá - tạm thời để trống, bạn sẽ cập nhật sau)
+        <a href="{% url 'about' %}">Xem thêm</a>
+    </p>
+
+    <h2>Chính sách quy định</h2>
+    <p>
+        (Nội dung chính sách quy định - tạm thời để trống, bạn sẽ cập nhật sau)
+        <a href="{% url 'policy' %}">Xem thêm</a>
+    </p>
+{% endblock %}
