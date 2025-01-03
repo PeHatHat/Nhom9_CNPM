@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),  # Bao gồm URL của core app
+    path('users/', include('users.urls')),
+    path('blog/', include('blog.urls')),
 ]
 
 # Serve media files during development

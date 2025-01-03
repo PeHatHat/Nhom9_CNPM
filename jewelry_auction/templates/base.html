@@ -1,11 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Jewelry Auction</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
-        (Thanh navigation - bạn có thể thêm menu ở đây)
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'policy' %}">Policy</a></li>
+                <li><a href="{% url 'blog-list' %}">Blog</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'users:profile' %}">Profile</a></li>
+                    <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:login' %}">Login</a></li>
+                    <li><a href="{% url 'users:register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
 
     <main>

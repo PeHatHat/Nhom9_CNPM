@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'users',
+    'django_extensions',
+    'solo',
+    'blog',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'jewelry_auction',
         'USER': 'root',
-        'PASSWORD': 'your_pasword',
+        'PASSWORD': 'your_password',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Blog</h1>
+
+  <form method="get">
+    <input type="text" name="search" placeholder="Search blogs...">
+    <button type="submit">Search</button>
+  </form>
+
+  <a href="?ordering=publication_date">Sort by Date (Ascending)</a>
+  <a href="?ordering=-publication_date">Sort by Date (Descending)</a>
+  <a href="?ordering=title">Sort by Title (Ascending)</a>
+  <a href="?ordering=-title">Sort by Title (Descending)</a>
+
+  <ul>
+    {% for blog in blogs %}
+      <li>
+        <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a>
+        <p>{{ blog.publication_date }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
