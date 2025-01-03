@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<h2>General Statistics</h2>
+<ul>
+    <li>Total Users: {{ total_users }}</li>
+    <li>Total Jewelry: {{ total_jewelry }}</li>
+    <li>Total Auctions: {{ total_auctions }}</li>
+    <li>Total Bids: {{ total_bids }}</li>
+</ul>
+
+<h2>JCoin Statistics</h2>
+<ul>
+    <li>Total JCoin in System: {{ total_jcoin_in_system }}</li>
+</ul>
+
+<h2>Transaction Statistics</h2>
+<ul>
+    <li>Total Successful Transactions: {{ total_successful_transactions }}</li>
+    <li>Total Transaction Value: {{ total_transaction_value }}</li>
+    <li>Total Fee Collected: {{ total_fee_collected }}</li>
+</ul>
+<h2>Top 5 Users with Most JCoins</h2>
+<ol>
+    {% for user in top_5_users_by_jcoin %}
+        <li>{{ user.username }} - {{ user.jcoin_balance }} JCoins</li>
+    {% endfor %}
+</ol>
+
+<h2>Top 5 Highest Priced Jewelry</h2>
+<ol>
+    {% for jewelry in top_5_highest_priced_jewelry %}
+        <li>
+            {{ jewelry.name }} - 
+            {% if jewelry.highest_bid %}
+                Highest Bid: {{ jewelry.highest_bid }} JCoins
+            {% else %}
+                No Bids Yet
+            {% endif %}
+        </li>
+    {% endfor %}
+</ol>
+
+<h2>Auction Status Counts</h2>
+<ul>
+    {% for status_count in auction_status_counts %}
+        <li>{{ status_count.status }}: {{ status_count.count }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Delete Auction</h2>
+<p>Are you sure you want to delete auction for {{ auction.jewelry.name }}?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <a href="{% url 'auctions:auction-detail' auction.pk %}">Cancel</a>
+</form>
+{% endblock %}

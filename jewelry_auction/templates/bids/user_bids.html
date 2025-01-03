@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>My Bids</h1>
+
+<ul>
+    {% for bid in bids %}
+    <li>
+        <a href="{% url 'auctions:auction-detail' bid.auction.pk %}">{{ bid.auction.jewelry.name }}</a> - {{ bid.amount }} JCoins ({{ bid.timestamp }})
+    </li>
+    {% empty %}
+    <li>You have not placed any bids yet.</li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if bids.has_previous %}
+            <a href="?page=1">« first</a>
+            <a href="?page={{ bids.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ bids.number }} of {{ bids.paginator.num_pages }}.
+        </span>
+
+        {% if bids.has_next %}
+            <a href="?page={{ bids.next_page_number }}">next</a>
+            <a href="?page={{ bids.paginator.num_pages }}">last »</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

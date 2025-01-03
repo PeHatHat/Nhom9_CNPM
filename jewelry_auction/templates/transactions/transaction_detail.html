@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Transaction Details</h1>
+<p>Transaction ID: {{ transaction.transaction_id }}</p>
+<p>Auction: <a href="{% url 'auctions:auction-detail' transaction.auction.pk %}">{{ transaction.auction.jewelry.name }}</a></p>
+<p>Winner: {{ transaction.winning_bidder.username }}</p>
+<p>Seller: {{ transaction.jewelry_owner.username }}</p>
+<p>Amount: {{ transaction.amount }}</p>
+<p>Fee: {{ transaction.fee }}</p>
+<p>Status: {{ transaction.get_status_display }}</p>
+<p>Timestamp: {{ transaction.timestamp }}</p>
+<a href="{% url 'transactions:transaction-list' %}">Back to Transactions</a>
+{% endblock %}

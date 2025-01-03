@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Reject Jewelry</h2>
+<p>Do you reject {{ jewelry.name }}?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Reject</button>
+    <a href="{% url 'jewelry:jewelry-detail' jewelry.pk %}">Cancel</a>
+</form>
+{% endblock %}

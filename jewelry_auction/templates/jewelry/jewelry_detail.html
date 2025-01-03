@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ jewelry.name }}</h1>
+<p>Owner: {{ jewelry.owner.username }}</p>
+<p>Description: {{ jewelry.description }}</p>
+<p>Initial Price: {{ jewelry.initial_price }}</p>
+{% if jewelry.image_1 %}
+    <img src="{{ jewelry.image_1.url }}" alt="{{ jewelry.name }}">
+{% endif %}
+{% if jewelry.image_2 %}
+    <img src="{{ jewelry.image_2.url }}" alt="{{ jewelry.name }}">
+{% endif %}
+{% if jewelry.image_3 %}
+    <img src="{{ jewelry.image_3.url }}" alt="{{ jewelry.name }}">
+{% endif %}
+<p>Status: {{ jewelry.get_status_display }}</p>
+<p>Preliminary Price: {{ jewelry.preliminary_price }}</p>
+<p>Final Price: {{ jewelry.final_price }}</p>
+<p>Received At: {{ jewelry.received_at }}</p>
+<p>Seller Approved: {{ jewelry.seller_approved }}</p>
+
+{% if user == jewelry.owner or user.role in ['STAFF', 'MANAGER'] %}
+    <a href="{% url 'jewelry:jewelry-update' jewelry.pk %}">Edit</a>
+    <a href="{% url 'jewelry:jewelry-delete' jewelry.pk %}">Delete</a>
+{% endif %}
+{% if user.role in ['STAFF', 'MANAGER'] %}
+    <a href="{% url 'jewelry:jewelry-update-jewelry' jewelry.pk %}">Update Jewelry</a>
+{% endif %}
+{% if user == jewelry.owner %}
+  <a href="{% url 'jewelry:jewelry-confirm-auction' jewelry.pk %}">Confirm Auction</a>
+{% endif %}
+{% if user.role in ['STAFF', 'MANAGER'] %}
+    <a href="{% url 'jewelry:jewelry-approve' jewelry.pk %}">Approve</a>
+    <a href="{% url 'jewelry:jewelry-reject' jewelry.pk %}">Reject</a>
+{% endif %}
+{% endblock %}

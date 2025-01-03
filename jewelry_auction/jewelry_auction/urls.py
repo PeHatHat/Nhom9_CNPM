@@ -8,6 +8,11 @@ urlpatterns = [
     path('', include('core.urls')),  # Bao gồm URL của core app
     path('users/', include('users.urls')),
     path('blog/', include('blog.urls')),
+    path('jewelry/', include('jewelry.urls')),
+    path('auctions/', include('auctions.urls')),
+    path('bids/', include('bids.urls')),
+    path('notifications/', include('notifications.urls')),
+    path('transactions/', include('transactions.urls')),
 ]
 
 # Serve media files during development

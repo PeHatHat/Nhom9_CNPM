@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'django_extensions',
     'solo',
     'blog',
+    'jewelry',
+    'auctions',
+    'bids',
+    'notifications',
+    'transactions',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -69,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.unread_notifications',
             ],
         },
     },

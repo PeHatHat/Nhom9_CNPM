@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Notifications</h1>
+
+<ul>
+    {% for notification in notifications %}
+    <li>
+        <a href="{% url 'notifications:notification-detail' notification.pk %}">
+            {{ notification.message }}
+        </a>
+        ({{ notification.created_at }})
+        {% if not notification.is_read %}
+            (Unread)
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>You have no notifications.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

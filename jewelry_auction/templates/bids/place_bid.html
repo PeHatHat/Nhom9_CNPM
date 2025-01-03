@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Place Bid for {{ auction.jewelry.name }}</h2>
+<p>Current highest bid: 
+    {% if auction.bids.all %}
+        {{ auction.bids.all.last.amount }}
+    {% else %}
+        {{ auction.jewelry.initial_price }}
+    {% endif %}
+</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Place Bid</button>
+</form>
+<a href="{% url 'auctions:auction-detail' auction.pk %}">Back to Auction</a>
+{% endblock %}

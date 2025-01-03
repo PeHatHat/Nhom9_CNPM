@@ -13,9 +13,25 @@
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'policy' %}">Policy</a></li>
                 <li><a href="{% url 'blog-list' %}">Blog</a></li>
-
+                <li><a href="{% url 'jewelry:jewelry-list' %}">Jewelry</a></li>
+                <li><a href="{% url 'auctions:auction-list' %}">Auctions</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'users:profile' %}">Profile</a></li>
+                    <li><a href="{% url 'bids:user_bids' %}">My Bids</a></li>
+                    <li><a href="{% url 'transactions:transaction-list' %}">Transactions</a></li>
+                    <li>
+                        <a href="{% url 'notifications:notification-list' %}">Notifications</a>
+                        {% if unread_notifications_count > 0 %}
+                            <span class="badge">{{ unread_notifications_count }}</span>
+                        {% endif %}
+                    </li>
+                    {% if user.role == 'MEMBER' %}
+                        <li><a href="{% url 'jewelry:jewelry-create' %}">Create Jewelry</a></li>
+                        <li><a href="{% url 'jewelry:my_jewelry' %}">My Jewelries</a></li>
+                    {% endif %}
+                    {% if user.role == 'ADMIN' or user.role == 'MANAGER' %}
+                        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% endif %}
                     <li><a href="{% url 'users:logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'users:login' %}">Login</a></li>
@@ -33,5 +49,6 @@
     <footer>
         (Footer)
     </footer>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

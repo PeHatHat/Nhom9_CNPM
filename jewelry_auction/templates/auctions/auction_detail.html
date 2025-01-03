@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Auction Details</h1>
+<p>Jewelry: <a href="{% url 'jewelry:jewelry-detail' auction.jewelry.pk %}">{{ auction.jewelry.name }}</a></p>
+<p>Manager: {{ auction.manager.username }}</p>
+{% if auction.staff %}
+    <p>Staff: {{ auction.staff.username }}</p>
+{% endif %}
+<p>Start Time: {{ auction.start_time }}</p>
+<p>End Time: {{ auction.end_time }}</p>
+<p>Status: {{ auction.get_status_display }}</p>
+
+{% if user == auction.manager %}
+    <a href="{% url 'auctions:auction-update' auction.pk %}">Edit</a>
+    <a href="{% url 'auctions:auction-delete' auction.pk %}">Delete</a>
+    <a href="{% url 'auctions:auction-cancel' auction.pk %}">Cancel</a>
+{% endif %}
+
+<h2>Bids</h2>
+<ul>
+    {% for bid in auction.bids.all %}
+    <li>{{ bid.user.username }}: {{ bid.amount }} JCoins - {{ bid.timestamp }}</li>
+    {% empty %}
+    <li>No bids yet.</li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated and auction.status == 'OPEN' %}
+    <a href="{% url 'bids:place_bid' auction.pk %}">Place Bid</a>
+{% endif %}
+{% endblock %}

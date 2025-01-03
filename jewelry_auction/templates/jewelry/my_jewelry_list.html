@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>My Jewelry</h1>
+
+<form method="get">
+    <input type="text" name="search" placeholder="Search by name...">
+    <button type="submit">Search</button>
+</form>
+
+<a href="?sort=name">Sort by Name (Ascending)</a>
+<a href="?sort=-name">Sort by Name (Descending)</a>
+<a href="?sort=initial_price">Sort by Initial Price (Ascending)</a>
+<a href="?sort=-initial_price">Sort by Initial Price (Descending)</a>
+
+<div class="jewelry-grid">
+    {% for jewelry in jewelries %}
+    <div class="jewelry-item">
+        <a href="{% url 'jewelry:jewelry-detail' jewelry.pk %}">
+            {% if jewelry.image_1 %}
+            <img src="{{ jewelry.image_1.url }}" alt="{{ jewelry.name }}">
+            {% else %}
+            <img src="{% static 'path/to/default/image.jpg' %}" alt="No Image">
+            {% endif %}
+            <h2>{{ jewelry.name }}</h2>
+        </a>
+        <p>Initial Price: {{ jewelry.initial_price }}</p>
+        <p>Status: {{ jewelry.get_status_display }}</p>
+    </div>
+    {% empty %}
+    <p>No jewelry found.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if jewelries.has_previous %}
+            <a href="?page=1">« first</a>
+            <a href="?page={{ jewelries.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ jewelries.number }} of {{ jewelries.paginator.num_pages }}.
+        </span>
+
+        {% if jewelries.has_next %}
+            <a href="?page={{ jewelries.next_page_number }}">next</a>
+            <a href="?page={{ jewelries.paginator.num_pages }}">last »</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
