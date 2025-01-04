@@ -6,17 +6,39 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Trang chủ</h1>
+<div class="hero-section">
+    <h1>Chào mừng đến với Nhom9_CNPM</h1>
+</div>
 
-    <h2>Giới thiệu công ty</h2>
-    <p>
-        (Nội dung giới thiệu công ty đấu giá - tạm thời để trống, bạn sẽ cập nhật sau)
+<div class="container">
+  <div class="intro-section">
+    <h2>Về chúng tôi</h2>
+    <div class="intro-content">
+      <div class="intro-text">
+        <p>Nhom9_CNPM là công ty đấu giá trực tuyến chuyên về trang sức cao cấp, được thành lập với sứ mệnh mang đến cho khách hàng những sản phẩm trang sức tinh tế, độc đáo và giá trị nhất.</p>
+        <p>Chúng tôi cam kết cung cấp dịch vụ đấu giá minh bạch, công bằng và an toàn, đảm bảo quyền lợi tối đa cho cả người mua và người bán.</p>
         <a href="{% url 'about' %}">Xem thêm</a>
-    </p>
+      </div>
 
-    <h2>Chính sách quy định</h2>
-    <p>
-        (Nội dung chính sách quy định - tạm thời để trống, bạn sẽ cập nhật sau)
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2>Chính sách & Quy định</h2>
+    <div class="policy-content">
+
+      <div class="policy-text">
+        <p>Chúng tôi luôn đặt lợi ích của khách hàng lên hàng đầu, với những chính sách và quy định rõ ràng, đảm bảo trải nghiệm đấu giá tốt nhất:</p>
+        <ul>
+          <li>Đảm bảo tính xác thực và chất lượng của trang sức.</li>
+          <li>Quy trình đấu giá minh bạch, công khai.</li>
+          <li>Bảo mật thông tin cá nhân và giao dịch của khách hàng.</li>
+          <li>Hỗ trợ khách hàng tận tâm, chuyên nghiệp.</li>
+        </ul>
         <a href="{% url 'policy' %}">Xem thêm</a>
-    </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

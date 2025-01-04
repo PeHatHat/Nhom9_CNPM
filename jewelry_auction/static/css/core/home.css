@@ -1,0 +1,144 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+/* Hero Section */
+.hero-section {
+  background-image: url("{% static 'images/core/hero-image.jpg' %}"); /* Thay ảnh nền */
+  background-size: cover;
+  background-position: center;
+  color: #000;
+  text-align: center;
+  padding: 100px 0; /* Giảm padding trên dưới */
+  border-radius: 10px 10px 0 0; /* Thêm góc tròn cho phần trên */
+}
+
+.hero-content {
+  background-color: rgba(255, 255, 255, 0.5); /* Thêm màu trắng mờ */
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.hero-section h1 {
+  font-size: 3em;
+  margin-top: 0; /* Loại bỏ margin top */
+  margin-bottom: 0px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Thêm bóng cho chữ */
+}
+
+.hero-section p {
+  font-size: 1.3em;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Intro Section */
+.intro-section {
+  margin-bottom: 50px;
+  display: flex; /* Thêm flexbox */
+  flex-direction: column; /* Xếp chồng theo chiều dọc */
+  align-items: center; /* Căn giữa theo chiều ngang */
+}
+
+.intro-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #e67e22; /* Màu cam */
+  text-align: center; /* Căn giữa tiêu đề */
+}
+
+.intro-content {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+.intro-text {
+}
+
+.intro-text p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: justify; /* Căn đều 2 bên */
+}
+
+.intro-text a {
+  text-decoration: none;
+  color: #e67e22;
+}
+.intro-text a:hover {
+  text-decoration: underline;
+}
+/* Policy Section */
+.policy-section {
+  margin-bottom: 50px;
+  display: flex; /* Thêm flexbox */
+  flex-direction: column; /* Xếp chồng theo chiều dọc */
+  align-items: center; /* Căn giữa theo chiều ngang */
+}
+
+.policy-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #e67e22; /* Màu cam */
+  text-align: center; /* Căn giữa tiêu đề */
+}
+
+.policy-content {
+  width: 100%;
+}
+
+.policy-text {
+}
+
+.policy-text p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.policy-text ul {
+  list-style: disc;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.policy-text li {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 0;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5em;
+  }
+
+  .hero-section p {
+    font-size: 1.1em;
+  }
+
+  .intro-content,
+  .policy-content {
+    /* flex-direction: column; */
+  }
+
+  .intro-section h2,
+  .policy-section h2 {
+    font-size: 2em;
+  }
+}
