@@ -1,0 +1,63 @@
+/* about.css */
+
+.about-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.about-content {
+  background-color: #f8f8f8;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h1 {
+  text-align: center;
+  color: #c9984f; /* Màu vàng sang trọng cho tiêu đề */
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.about-content p {
+  margin-bottom: 15px;
+  text-align: justify; /* Căn đều chữ hai bên */
+}
+
+.about-content .jewe {
+  display: block;
+  width: 50%; /* Chỉnh kích thước ảnh */
+  max-width: 600px;
+  margin: 20px auto; /* Căn giữa ảnh */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bóng đổ cho ảnh */
+  transition: transform 0.3s ease; /* Hiệu ứng hover */
+}
+
+.about-content .jewe:hover {
+  transform: scale(1.05); /* Phóng to ảnh khi hover */
+}
+
+/* Thêm hiệu ứng chuyển màu nhẹ cho background */
+.about-content:hover {
+  background-color: #f8f8f8;
+}
+
+/* Các đoạn văn bản nổi bật hơn */
+.about-content p:nth-child(3),
+.about-content p:nth-child(4) {
+  font-weight: 600;
+  color: #555;
+}
+/* Chỉnh sửa font chữ, cỡ chữ, màu chữ cho các đoạn văn */
+.about-content p {
+  font-family: "Times New Roman", serif; /* Chọn font chữ Times New Roman */
+  font-size: 18px; /* Cỡ chữ 18px */
+  color: #333; /* Màu chữ đen */
+  line-height: 1.8; /* Khoảng cách dòng 1.8 */
+}

@@ -1,0 +1,154 @@
+body {
+  font-family: "Roboto", sans-serif;
+  /* Thêm gradient */
+  background: linear-gradient(
+    to right,
+    #e0e0e0,
+    #f4f4f4
+  ); /* Thay đổi màu theo ý bạn */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  background: linear-gradient(to bottom, #f5f5f5, #fff);
+  padding: 30px 40px;
+  border-radius: 12px;
+  /* Thêm border hoặc box-shadow */
+  border: 2px solid #ddd; /* Hoặc thay bằng box-shadow */
+  box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+form p {
+  margin-bottom: 15px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="tel"],
+form select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Bo tròn hơn */
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transition */
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="tel"]:focus,
+form select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  outline: none;
+}
+
+form input[type="checkbox"] {
+  margin-right: 5px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+}
+
+form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Mũi tên */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px; /* Chừa chỗ cho mũi tên */
+}
+
+form input[type="checkbox"]:checked::before {
+  content: "\2713"; /* Dấu tích */
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4caf50;
+  font-size: 14px;
+}
+
+form button[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px; /* Bo tròn hơn */
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+form button[type="submit"]:focus {
+  background-color: #45a049;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Style for error messages */
+.errorlist {
+  color: red;
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+}
+
+.errorlist li {
+  font-size: 14px;
+}
+
+/* Style for help text */
+.helptext {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+
+@media (max-width: 480px) {
+  form {
+    width: 90%;
+  }
+
+  form input,
+  form select {
+    font-size: 14px;
+  }
+}

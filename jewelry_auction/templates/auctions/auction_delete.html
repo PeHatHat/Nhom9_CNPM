@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auction/auction_delete.css' %}">
+{% endblock %}
 
 {% block content %}
 <h2>Delete Auction</h2>

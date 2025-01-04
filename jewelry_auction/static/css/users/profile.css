@@ -1,0 +1,75 @@
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-container {
+  width: 700px;
+  margin: 30px auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+h2 {
+  color: #007bff; /* Màu xanh dương cho tiêu đề */
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Paragraph styling */
+p {
+  margin: 15px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Label styling (left side of the paragraph) */
+p strong {
+  font-weight: 600;
+  min-width: 150px;
+  color: #28a745; /* Màu xanh lá cho label */
+}
+
+/* Adding content to labels using ::before pseudo-element */
+p:nth-child(2)::before {
+  content: "Username:";
+  margin-right: 5px;
+}
+
+p:nth-child(3)::before {
+  content: "First Name:";
+  margin-right: 5px;
+}
+
+p:nth-child(4)::before {
+  content: "Last Name:";
+  margin-right: 5px;
+}
+
+p:nth-child(5)::before {
+  content: "Role:";
+  margin-right: 5px;
+}
+
+p:nth-child(6)::before {
+  content: "JCoin Balance:";
+  margin-right: 5px;
+}
+
+/* Value styling (right side of the paragraph) */
+p span {
+  font-weight: normal;
+  color: #dc3545;
+}

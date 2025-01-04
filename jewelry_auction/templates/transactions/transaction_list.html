@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/transaction/transaction_list.css' %}">
+{% endblock %}
 
 {% block content %}
 <h1>Transactions</h1>

@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/jewelry/jewelry_reject.css' %}">
+{% endblock %}
 
 {% block content %}
 <h2>Reject Jewelry</h2>

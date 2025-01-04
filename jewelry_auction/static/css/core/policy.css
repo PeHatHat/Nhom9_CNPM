@@ -1,0 +1,58 @@
+/* policy.css */
+
+.policy {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.policy h1 {
+  text-align: center;
+  color: #4cc3dd; /* Màu xanh tạo cảm giác tin cậy */
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.policy p {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.policy ul {
+  list-style: none;
+  padding: 0;
+}
+
+.policy li {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.policy li strong {
+  color: #555; /* Màu tối hơn cho tiêu đề */
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Tạo dấu đầu dòng giả */
+.policy li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4cc3dd; /* Màu xanh đồng bộ với tiêu đề */
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.policy li p {
+  margin-left: 20px;
+}

@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/core/about.css' %}">
+{% endblock %}
 
 {% block content %}
-    <h1>Giới thiệu công ty đấu giá</h1>
-    <p>
-        (Nội dung giới thiệu công ty đấu giá)
-    </p>
+<div class="about-container">
+  <div class="about-content">
+        <h1>Giới thiệu công ty đấu giá</h1>
+        <p>
+          Công ty chúng tôi, NHOM9_CNPM, là một công ty đấu giá hàng đầu tại Việt Nam. Chúng tôi cung cấp dịch vụ đấu giá cho các sản phẩm như đồ trang sức, đồ cổ, và nhiều hơn nữa.
+        </p>
+        <p>
+          Thành lập vào tháng 8/2012, NHOM9_CNPM khởi đầu với những sản phẩm về đồ trang sức. Sự tình cờ đã đưa NHOM9_CNPM đến với thế giới đấu giá, từ đó giấc mơ của NHOM9_CNPM ngày một được vun đắp để đem nhiều sản phẩm chất lượng và độc đáo nhất đến tay của khách hàng Việt Nam và quốc tế.
+        </p>
+        <p>
+          Đến với NHOM9_CNPM, bạn sẽ cảm nhận được sự tỉ mỉ trên những sản phẩm tạo ra bởi bàn tay tài hoa từ những người thợ kim hoàn của NHOM9_CNPM. Từng thiết kế, từng đường nét được lấy từ cảm hứng, từ đam mê, hoài bão mà NHOM9_CNPM đã và đang chắt chiu từng ngày trên con đường phát triển.
+        </p>
+        <img src="{% static 'css/core/about.jpg' %}" alt="Jewelry Auction Img" class="jewe" />
+        <p>
+          Do UTH Bình Thạnh cấp GCN ĐKHKD ngày: 01/01/2025
+        </p>
+      </div>
+    </div>
 {% endblock %}

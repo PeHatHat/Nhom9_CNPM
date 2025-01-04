@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/jewelry/jewelry_list.css' %}">
+{% endblock %}
 
 {% block content %}
 <h1>Jewelry List</h1>

@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/bids/place_bid.css' %}">
+{% endblock %}
 
 {% block content %}
 <h2>Place Bid for {{ auction.jewelry.name }}</h2>

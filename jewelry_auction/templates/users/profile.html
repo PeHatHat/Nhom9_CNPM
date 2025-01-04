@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+ {%load static%} 
 
-{% block content %}
-<h2>Profile</h2>
-<p>Username: {{ user.username }}</p>
-<p>First Name: {{ user.first_name }}</p>
-<p>Last Name: {{ user.last_name }}</p>
-<p>Role: {{ user.get_role_display }}</p>
-<p>JCoin Balance: {{ user.jcoin_balance }}</p>
+ {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/users/profile.css' %}" />
+{% endblock %} {% block content %}
+
+<div class="profile-container">
+  <h2>Profile</h2>
+  <p>{{ user.username }}</p>
+  <p>{{ user.first_name }}</p>
+  <p>{{ user.last_name }}</p>
+  <p>{{ user.get_role_display }}</p>
+  <p>{{ user.jcoin_balance }}</p>
+</div>
 {% endblock %}

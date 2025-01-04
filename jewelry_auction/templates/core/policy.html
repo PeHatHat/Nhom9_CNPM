@@ -1,8 +1,29 @@
 {% extends 'base.html' %}
+{%load static%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/core/policy.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="policy">
     <h1>Chính sách quy định</h1>
     <p>
-        (Nội dung chính sách quy định)
+      Công ty chúng tôi cam kết cung cấp dịch vụ tốt nhất cho khách hàng. Dưới đây là các chính sách quy định của chúng tôi:
     </p>
+    <ul>
+      <li>
+        <strong>Chính sách bảo mật:</strong> Chúng tôi cam kết bảo mật thông tin cá nhân của khách hàng.
+      </li>
+      <li>
+        <strong>Chính sách hoàn tiền:</strong> Chúng tôi cung cấp chính sách hoàn tiền cho khách hàng trong trường hợp không hài lòng với sản phẩm.
+      </li>
+      <li>
+        <strong>Chính sách vận chuyển:</strong> Chúng tôi cung cấp dịch vụ vận chuyển nhanh chóng và an toàn cho khách hàng.
+      </li>
+    </ul>
+    <p>
+      Nếu bạn có bất kỳ câu hỏi nào về chính sách của chúng tôi, vui lòng liên hệ với chúng tôi qua email hoặc điện thoại.
+    </p>
+  </div>
 {% endblock %}
