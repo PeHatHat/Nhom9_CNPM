@@ -1,70 +1,75 @@
+/* Register.css */
+
+/* Loại bỏ display: flex khỏi body */
 body {
   font-family: "Roboto", sans-serif;
-  /* Thêm gradient */
-  background: linear-gradient(
-    to right,
-    #e0e0e0,
-    #f4f4f4
-  ); /* Thay đổi màu theo ý bạn */
+  background: linear-gradient(to right, #e0e0e0, #f4f4f4);
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  /* Loại bỏ display, align-items, justify-content */
+  /* height: auto;  Không cần thiết vì đã bỏ display: flex */
 }
 
-h2 {
+/* Thêm class container cho h2 và form */
+.container {
+  padding-top: 5px; /* Điều chỉnh khoảng cách với header */
+  padding-bottom: 50px; /* Điều chỉnh khoảng cách với footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container h2 {
   text-align: center;
   color: #333;
+  margin-bottom: 20px; /* Khoảng cách với form */
 }
 
-form {
+.container form {
   background: linear-gradient(to bottom, #f5f5f5, #fff);
   padding: 30px 40px;
   border-radius: 12px;
-  /* Thêm border hoặc box-shadow */
-  border: 2px solid #ddd; /* Hoặc thay bằng box-shadow */
+  border: 2px solid #ddd;
   box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.2);
   width: 350px;
 }
 
-form p {
+.container form p {
   margin-bottom: 15px;
 }
 
-form label {
+.container form label {
   display: block;
   margin-bottom: 8px;
   color: #333;
   font-weight: bold;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="tel"],
-form select {
+.container form input[type="text"],
+.container form input[type="email"],
+.container form input[type="password"],
+.container form input[type="tel"],
+.container form select {
   width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 5px;
   border: 1px solid #ccc;
-  border-radius: 8px; /* Bo tròn hơn */
+  border-radius: 8px;
   box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transition */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-form input[type="text"]:focus,
-form input[type="email"]:focus,
-form input[type="password"]:focus,
-form input[type="tel"]:focus,
-form select:focus {
+.container form input[type="text"]:focus,
+.container form input[type="email"]:focus,
+.container form input[type="password"]:focus,
+.container form input[type="tel"]:focus,
+.container form select:focus {
   border-color: #4caf50;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
   outline: none;
 }
 
-form input[type="checkbox"] {
+.container form input[type="checkbox"] {
   margin-right: 5px;
   appearance: none;
   -webkit-appearance: none;
@@ -78,18 +83,18 @@ form input[type="checkbox"] {
   position: relative;
 }
 
-form select {
+.container form select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Mũi tên */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
   background-repeat: no-repeat;
   background-position: right 10px center;
-  padding-right: 30px; /* Chừa chỗ cho mũi tên */
+  padding-right: 30px;
 }
 
-form input[type="checkbox"]:checked::before {
-  content: "\2713"; /* Dấu tích */
+.container form input[type="checkbox"]:checked::before {
+  content: "\2713";
   display: block;
   position: absolute;
   top: 50%;
@@ -99,30 +104,29 @@ form input[type="checkbox"]:checked::before {
   font-size: 14px;
 }
 
-form button[type="submit"] {
+.container form button[type="submit"] {
   background-color: #4caf50;
   color: #fff;
   padding: 12px 20px;
   border: none;
-  border-radius: 8px; /* Bo tròn hơn */
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
   font-size: 16px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-form button[type="submit"]:hover {
+.container form button[type="submit"]:hover {
   background-color: #45a049;
   transform: translateY(-2px);
 }
 
-form button[type="submit"]:focus {
+.container form button[type="submit"]:focus {
   background-color: #45a049;
   outline: none;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
-/* Style for error messages */
 .errorlist {
   color: red;
   list-style: none;
@@ -134,7 +138,6 @@ form button[type="submit"]:focus {
   font-size: 14px;
 }
 
-/* Style for help text */
 .helptext {
   font-size: 12px;
   color: #666;
@@ -143,12 +146,12 @@ form button[type="submit"]:focus {
 }
 
 @media (max-width: 480px) {
-  form {
+  .container form {
     width: 90%;
   }
 
-  form input,
-  form select {
+  .container form input,
+  .container form select {
     font-size: 14px;
   }
 }
