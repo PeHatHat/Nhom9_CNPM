@@ -1,0 +1,55 @@
+/* blog_reject.css */
+
+body {
+  font-family: sans-serif;
+}
+
+.blog-container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.blog-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.blog-author {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.blog-content {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.approve-button,
+.cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.approve-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}

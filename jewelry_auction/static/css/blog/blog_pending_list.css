@@ -1,0 +1,115 @@
+/* static/css/blog/blog_pending_list.css */
+
+/* Container */
+.pending-blogs-container {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Tiêu đề */
+.pending-blogs-title {
+  color: #333;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+/* Danh sách blog */
+.pending-blogs-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Item blog */
+.pending-blogs-list-item {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pending-blogs-list-item:not(:last-child) {
+  border-bottom: 3px solid #ccc;
+}
+
+/* Hiệu ứng hover cho item */
+.pending-blogs-list-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Phần header của item (chứa tiêu đề và nút) */
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  margin-bottom: 12px; /* Tạo khoảng cách với phần thông tin tác giả */
+}
+
+/* Link tiêu đề blog */
+.blog-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.blog-info {
+    display: flex; /* Sử dụng flexbox */
+    align-items: center; /* Căn giữa theo chiều dọc */
+  }
+  
+  /* Tác giả */
+  .blog-author {
+    color: #555;
+    font-size: 1.2em;
+    margin-left: 5px; /* Tạo khoảng cách với chữ "By" */
+    font-style: italic;
+  }
+
+.blog-author:hover {
+  text-decoration: underline;
+}
+
+/* Nút Approve và Reject */
+.approve-link,
+.reject-link {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 2px;
+  font-size: 1em; /* Chỉnh lại kích thước chữ */
+}
+
+.approve-link {
+  background-color: #28a745;
+  color: white;
+}
+
+.reject-link {
+  background-color: #dc3545;
+  color: white;
+}
+
+.approve-link:hover,
+.reject-link:hover {
+  opacity: 0.8;
+}
+
+.button-group {
+  margin-bottom: 0; /* Xóa margin-bottom */
+}

@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
-{% block content %}
-<h2>Reject Blog: {{ blog.title }}</h2>
-<p>By: {{ blog.author.username }}</p>
-<p>Content: {{ blog.content|linebreaksbr }}</p>
+{% load static %}
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Reject</button>
-    <a href="{% url 'blog-pending-list' %}">Cancel</a>
-</form>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog/blog_reject.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="blog-container">
+    <h2 class="blog-title">Reject Blog: {{ blog.title }}</h2>
+    <p class="blog-author">By: {{ blog.author.username }}</p>
+    <p class="blog-content">{{ blog.content|linebreaksbr }}</p>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="reject-button">Reject</button>
+        </form>
+        <a href="{% url 'blog-pending-list' %}" class="cancel-button">Cancel</a>
+    </div>
+</div>
 {% endblock %}

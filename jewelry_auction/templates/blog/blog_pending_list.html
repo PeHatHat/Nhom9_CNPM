@@ -1,14 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog/blog_pending_list.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2>Pending Blog Posts</h2>
-<ul>
-    {% for blog in blogs %}
-        <li>
-            <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a> by {{ blog.author.username }}
-            - <a href="{% url 'blog-approve' blog.pk %}">Approve</a>
-            - <a href="{% url 'blog-reject' blog.pk %}">Reject</a>
+<div class="pending-blogs-container">
+    <h2 class="pending-blogs-title">Pending Blog Posts</h2>
+    <ul class="pending-blogs-list">
+        {% for blog in blogs %}
+        <li class="pending-blogs-list-item">
+            <div class="blog-header">
+                <a href="{% url 'blog-detail' blog.pk %}" class="blog-link">{{ blog.title }}</a>
+                <div class="button-group">
+                    <a href="{% url 'blog-approve' blog.pk %}" class="approve-link">Approve</a>
+                    <a href="{% url 'blog-reject' blog.pk %}" class="reject-link">Reject</a>
+                </div>
+            </div>
+            <div class="blog-info">
+                By: <a class="blog-author" href="#">{{ blog.author.username }}</a>
+            </div>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
