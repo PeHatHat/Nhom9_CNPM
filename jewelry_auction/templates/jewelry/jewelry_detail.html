@@ -25,17 +25,16 @@
 <p>Received At: {{ jewelry.received_at }}</p>
 <p>Seller Approved: {{ jewelry.seller_approved }}</p>
 
-{% if user == jewelry.owner or user.role in ['STAFF', 'MANAGER'] %}
+{% if user == jewelry.owner %}
     <a href="{% url 'jewelry:jewelry-update' jewelry.pk %}">Edit</a>
     <a href="{% url 'jewelry:jewelry-delete' jewelry.pk %}">Delete</a>
 {% endif %}
-{% if user.role in ['STAFF', 'MANAGER'] %}
-    <a href="{% url 'jewelry:jewelry-update-jewelry' jewelry.pk %}">Update Jewelry</a>
+{% if user.role == 'STAFF' or user.role == 'MANAGER' or user.role == 'ADMIN' %}    <a href="{% url 'jewelry:jewelry-update-jewelry-by-staff-or-manager' jewelry.pk %}">Update Jewelry</a>
 {% endif %}
 {% if user == jewelry.owner %}
   <a href="{% url 'jewelry:jewelry-confirm-auction' jewelry.pk %}">Confirm Auction</a>
 {% endif %}
-{% if user.role in ['STAFF', 'MANAGER'] %}
+{% if user.role == 'STAFF' or user.role == 'MANAGER' or user.role == 'ADMIN' %}
     <a href="{% url 'jewelry:jewelry-approve' jewelry.pk %}">Approve</a>
     <a href="{% url 'jewelry:jewelry-reject' jewelry.pk %}">Reject</a>
 {% endif %}

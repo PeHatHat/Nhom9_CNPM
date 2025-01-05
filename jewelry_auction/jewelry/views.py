@@ -75,8 +75,10 @@ def jewelry_delete(request, pk):
 
 @login_required
 def my_jewelry_list(request):
-    jewelry_list = Jewelry.objects.filter(owner=request.user).order_by('-jewelry_id')
-    
+    if request.user.is_authenticated and request.user.role in ['STAFF', 'MANAGER', 'ADMIN']:
+        jewelry_list = Jewelry.objects.all().order_by('-jewelry_id')
+    else:
+        jewelry_list = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS']).order_by('-jewelry_id')   
     # Search
     search_query = request.GET.get('search')
     if search_query:

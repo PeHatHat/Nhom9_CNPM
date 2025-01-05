@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Approve Blog: {{ blog.title }}</h2>
+<p>By: {{ blog.author.username }}</p>
+<p>Content: {{ blog.content|linebreaksbr }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Approve</button>
+    <a href="{% url 'blog-pending-list' %}">Cancel</a>
+</form>
+{% endblock %}

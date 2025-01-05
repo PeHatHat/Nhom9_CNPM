@@ -97,19 +97,3 @@ Không commit mật khẩu lên repository.
 Mở trình duyệt và truy cập địa chỉ [http://127.0.0.1:8000/] để kiểm tra.
 
 Đăng nhập vào trang admin [http://127.0.0.1:8000/admin] với tài khoản superuser đã được tạo trong jewelry_auction_data.sql (liên hệ nhóm trưởng để biết thông tin đăng nhập).
-
-### Front-end
-
-Đọc API document
-
-1.Truy cập vào [http://127.0.0.1:8000/redoc/] hoặc [http://127.0.0.1:8000/swagger/]
-
-tạo và chỉnh sửa các file FE trong thư mục templates:
-
-- Trang chủ: index.html
-
-- Trang đăng nhập: login.html
-
-- Trang đăng ký: register.html
-
-- Trang cá nhân: profile.html

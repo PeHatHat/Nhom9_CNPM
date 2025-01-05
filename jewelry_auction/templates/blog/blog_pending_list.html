@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Pending Blog Posts</h2>
+<ul>
+    {% for blog in blogs %}
+        <li>
+            <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a> by {{ blog.author.username }}
+            - <a href="{% url 'blog-approve' blog.pk %}">Approve</a>
+            - <a href="{% url 'blog-reject' blog.pk %}">Reject</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

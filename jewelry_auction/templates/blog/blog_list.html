@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/blog/blog_list.css' %}">
@@ -19,11 +19,15 @@
   <a href="?ordering=-title">Sort by Title (Descending)</a>
 
   <ul>
-    {% for blog in blogs %}
-      <li>
-        <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a>
-        <p>{{ blog.publication_date }}</p>
-      </li>
-    {% endfor %}
+      {% for blog in blogs %}
+          <li>
+              <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a> by {{ blog.author.username }}
+              {% if user.is_authenticated and user.role == 'MANAGER' %}
+                  - {{ blog.status }}
+              {% elif user.is_authenticated and user.role == 'ADMIN' %}
+                  - {{ blog.status }}
+              {% endif %}
+          </li>
+      {% endfor %}
   </ul>
 {% endblock %}

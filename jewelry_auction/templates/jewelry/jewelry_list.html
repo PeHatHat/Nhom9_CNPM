@@ -23,9 +23,13 @@
     <div class="jewelry-item">
         <a href="{% url 'jewelry:jewelry-detail' jewelry.pk %}">
             {% if jewelry.image_1 %}
-            <img src="{{ jewelry.image_1.url }}" alt="{{ jewelry.name }}">
-            {% else %}
-            <img src="{% static 'path/to/default/image.jpg' %}" alt="No Image">
+                <img src="{{ jewelry.image_1.url }}" alt="{{ jewelry.name }} Image 1" style="max-width: 200px; max-height: 200px;">
+            {% endif %}
+            {% if jewelry.image_2 %}
+                <img src="{{ jewelry.image_2.url }}" alt="{{ jewelry.name }} Image 2" style="max-width: 200px; max-height: 200px;">
+            {% endif %}
+            {% if jewelry.image_3 %}
+                <img src="{{ jewelry.image_3.url }}" alt="{{ jewelry.name }} Image 3" style="max-width: 200px; max-height: 200px;">
             {% endif %}
             <h2>{{ jewelry.name }}</h2>
         </a>
