@@ -263,12 +263,13 @@ footer a:hover {
             <li class="dropdown">
               <a href="#" class="dropbtn"><i class="fas fa-layer-group"></i> Blog</a>
               <div class="dropdown-content">
+                  <a href="{% url 'blog-list' %}">Blog-List</a>
                 {% if user.is_authenticated %}
                   {% if user.role == 'MEMBER' or user.role == 'STAFF' %}
                     <a href="{% url 'blog-create' %}">Create Blog</a>
                   {% endif %}
                   {% if user.role == 'ADMIN' or user.role == 'MANAGER' %}
-                  <a href="{% url 'blog-create' %}">Create Blog</a>
+                    <a href="{% url 'blog-create' %}">Create Blog</a>
                     <a href="{% url 'blog-pending-list' %}">Pending Blogs</a>
                   {% endif %}
                 {% endif %}

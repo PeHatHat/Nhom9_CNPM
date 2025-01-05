@@ -1,87 +1,41 @@
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
+/* static/css/blog/blog_detail.css */
 
-.container {
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
-  padding: 20px;
-}
-
-h1 {
-  color: #333;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
-}
-
-button[type="submit"] {
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-
-.sort-links {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.sort-links a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #333;
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.sort-links a:hover {
-  background-color: #333;
-  color: #fff;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
+.blog-detail-container {
+  padding: 30px;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
   background-color: #fff;
-  margin-bottom: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
 }
 
-li a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1.2em;
+.blog-title {
+  font-size: 2.5em;
+  color: #000; /* Màu chữ trắng */
+  margin-bottom: 0px; /* Xóa margin bottom */
+  text-align: center;
   font-weight: bold;
-  display: block;
-  margin-bottom: 10px;
+  padding: 20px; /* Thêm padding */
+  background-image: url("{% static 'images/blog/title-bg.jpg' %}"); /* Thêm hình nền */
+  background-size: cover; /* Hình nền phủ kín */
+  background-position: center; /* Căn giữa hình nền */
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5); /* Đổ bóng chữ */
+  border-top-left-radius: 5px; /* Bo góc trên bên trái */
+  border-top-right-radius: 5px; /* Bo góc trên bên phải */
 }
 
-li p {
-  color: #666;
+.blog-publication-date {
   font-size: 0.9em;
+  color: #575757;
+  margin-top: 10px; /* Thêm margin top */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.blog-content {
+  font-size: 1.1em;
+  line-height: 1.8;
 }

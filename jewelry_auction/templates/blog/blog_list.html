@@ -6,28 +6,28 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Blog</h1>
+<div class="blog-container">
+    <h1>Blog</h1>
 
-  <form method="get">
-    <input type="text" name="search" placeholder="Search blogs...">
-    <button type="submit">Search</button>
-  </form>
+    <form class="blog-search-form" method="get">
+        <input type="text" name="search" placeholder="Search blogs...">
+        <button type="submit">Search</button>
+    </form>
 
-  <a href="?ordering=publication_date">Sort by Date (Ascending)</a>
-  <a href="?ordering=-publication_date">Sort by Date (Descending)</a>
-  <a href="?ordering=title">Sort by Title (Ascending)</a>
-  <a href="?ordering=-title">Sort by Title (Descending)</a>
+    <div class="blog-sort-links">
+        <a href="?ordering=publication_date">Sort by Date (Ascending)</a>
+        <a href="?ordering=-publication_date">Sort by Date (Descending)</a>
+        <a href="?ordering=title">Sort by Title (Ascending)</a>
+        <a href="?ordering=-title">Sort by Title (Descending)</a>
+    </div>
 
-  <ul>
-      {% for blog in blogs %}
-          <li>
-              <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a> by {{ blog.author.username }}
-              {% if user.is_authenticated and user.role == 'MANAGER' %}
-                  - {{ blog.status }}
-              {% elif user.is_authenticated and user.role == 'ADMIN' %}
-                  - {{ blog.status }}
-              {% endif %}
-          </li>
-      {% endfor %}
-  </ul>
+    <ul class="blog-list">
+        {% for blog in blogs %}
+        <li class="blog-post">
+            <a href="{% url 'blog-detail' blog.pk %}">{{ blog.title }}</a>
+            <p class="blog-publication-date">{{ blog.publication_date }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
