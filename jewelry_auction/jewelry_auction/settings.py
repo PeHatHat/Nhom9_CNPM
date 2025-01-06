@@ -123,12 +123,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Ho_Chi_Minh'  # Đặt múi giờ mặc định
 
 USE_I18N = True
 
-USE_TZ = True
-
+USE_TZ = True  # Django sẽ lưu thời gian trong cơ sở dữ liệu là UTC
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
