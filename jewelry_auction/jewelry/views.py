@@ -75,11 +75,15 @@ def jewelry_delete(request, pk):
 
 @login_required
 def my_jewelry_list(request):
-    if request.user.is_authenticated and request.user.role in ['STAFF', 'MANAGER', 'ADMIN']:
-        jewelry_list = Jewelry.objects.all().order_by('-jewelry_id')
+    user = request.user
+    if user.is_staff:
+        if user.groups.filter(name='Manager').exists() or user.is_superuser:
+            jewelry_list = Jewelry.objects.all().order_by('-jewelry_id')
+        else:
+            jewelry_list = Jewelry.objects.filter(status='pending').order_by('-jewelry_id')
     else:
-        jewelry_list = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS']).order_by('-jewelry_id')   
-    # Search
+        jewelry_list = Jewelry.objects.filter(owner=user).order_by('-jewelry_id')
+    
     search_query = request.GET.get('search')
     if search_query:
         jewelry_list = jewelry_list.filter(name__icontains=search_query)
@@ -98,6 +102,7 @@ def my_jewelry_list(request):
         jewelries = paginator.page(1)
     except EmptyPage:
         jewelries = paginator.page(paginator.num_pages)
+    
     return render(request, 'jewelry/my_jewelry_list.html', {'jewelries': jewelries})
 
 @login_required
