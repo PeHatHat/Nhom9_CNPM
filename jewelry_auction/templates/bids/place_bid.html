@@ -1,23 +1,42 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/bids/place_bid.css' %}">
 {% endblock %}
 
 {% block content %}
-<h2>Place Bid for {{ auction.jewelry.name }}</h2>
-<p>Current highest bid: 
-    {% if auction.bids.all %}
-        {{ auction.bids.all.last.amount }}
-    {% else %}
-        {{ auction.jewelry.initial_price }}
-    {% endif %}
-</p>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Place Bid</button>
-</form>
+<h2>Place Bid for {{ auction.jewelry.name }} (Auction ID: {{ auction.auction_id }})</h2>
+
+{% if auction.status == 'OPEN' %}
+    <p>Starting price: {{ auction.start_price }}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          <strong>Errors:</strong>
+          <ul>
+            {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <button type="submit">Place Bid</button>
+    </form>
+{% elif auction.status == 'CREATED' %}
+    <p>The auction has not started yet.</p>
+{% elif auction.status == 'CLOSED'%}
+    <p>The auction has ended.</p>
+{% elif auction.status == 'CANCELED'%}
+    <p>The auction has been canceled.</p>
+{% endif %}
+
 <a href="{% url 'auctions:auction-detail' auction.pk %}">Back to Auction</a>
 {% endblock %}

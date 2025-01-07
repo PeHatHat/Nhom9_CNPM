@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Jewelry
 from .forms import JewelryForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -108,15 +108,17 @@ def my_jewelry_list(request):
 @login_required
 def jewelry_update_by_staff(request, pk):
     jewelry = get_object_or_404(Jewelry, pk=pk)
-
-    if request.user.role not in ['STAFF', 'MANAGER']:
-        return HttpResponseForbidden("You don't have permission to update this jewelry.")
     
     if request.method == 'POST':
-        jewelry.preliminary_price = request.POST.get('preliminary_price')
-        jewelry.final_price = request.POST.get('final_price')
-        jewelry.received_at = request.POST.get('received_at')
+        preliminary_price = request.POST.get('preliminary_price')
+        final_price = request.POST.get('final_price') if request.user.role == 'MANAGER' else jewelry.final_price
+        received_at = request.POST.get('received_at')
+
+        jewelry.preliminary_price = preliminary_price
+        jewelry.final_price = final_price if request.user.role == 'MANAGER' else jewelry.final_price
+        jewelry.received_at = received_at
         jewelry.save()
+
         return redirect('jewelry:jewelry-detail', pk=jewelry.pk)
 
     return render(request, 'jewelry/jewelry_update_by_staff.html', {'jewelry': jewelry})

@@ -23,6 +23,7 @@ def auction_create(request):
         form = AuctionForm()
     return render(request, 'auctions/auction_create.html', {'form': form})
 
+@login_required
 def auction_list(request):
     auction_list = Auction.objects.all()
 
