@@ -20,10 +20,12 @@
     <img src="{{ jewelry.image_3.url }}" alt="{{ jewelry.name }}">
 {% endif %}
 <p>Status: {{ jewelry.get_status_display }}</p>
+{% if user.is_authenticated  %}
 <p>Preliminary Price: {{ jewelry.preliminary_price }}</p>
 <p>Final Price: {{ jewelry.final_price }}</p>
 <p>Received At: {{ jewelry.received_at }}</p>
 <p>Seller Approved: {{ jewelry.seller_approved }}</p>
+{% endif %}
 
 {% if user == jewelry.owner %}
     <!-- Chủ sở hữu có quyền xem và thao tác với trang sức của họ -->

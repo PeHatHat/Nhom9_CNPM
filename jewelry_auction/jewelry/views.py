@@ -13,7 +13,7 @@ def jewelry_create(request):
             jewelry = form.save(commit=False)
             jewelry.owner = request.user
             jewelry.save()
-            return redirect('jewelry:jewelry-list')
+            return redirect('jewelry:my_jewelry')
     else:
         form = JewelryForm()
     return render(request, 'jewelry/jewelry_create.html', {'form': form})
