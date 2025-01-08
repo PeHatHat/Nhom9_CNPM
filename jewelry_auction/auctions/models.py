@@ -37,57 +37,57 @@ class Auction(models.Model):
             self.status = 'OPEN'
             self.save()
 
-def close_auction(self):
-    from transactions.models import Transaction
-    from django.db import transaction as db_transaction
-    """Đóng phiên đấu giá, cập nhật bid thắng, trạng thái jewelry, tạo giao dịch, trừ/cộng JCoin."""
+    def close_auction(self):
+        from transactions.models import Transaction
+        from django.db import transaction as db_transaction
+        """Đóng phiên đấu giá, cập nhật bid thắng, trạng thái jewelry, tạo giao dịch, trừ/cộng JCoin."""
     
-    if self.status == 'OPEN' and self.end_time <= timezone.now():
-        self.status = 'CLOSED'
-        highest_bid = self.bids.select_related('user').order_by('-amount').first()
+        if self.status == 'OPEN' and self.end_time <= timezone.now():
+            self.status = 'CLOSED'
+            highest_bid = self.bids.select_related('user').order_by('-amount').first()
 
-        with db_transaction.atomic():
-            if highest_bid:
-                self.winning_bid = highest_bid
-                self.save()
+            with db_transaction.atomic():
+                if highest_bid:
+                    self.winning_bid = highest_bid
+                    self.save()
 
-                # Cập nhật trạng thái của jewelry
-                auction_jewelry = self.jewelry
-                auction_jewelry.status = 'SOLD'
-                auction_jewelry.owner = highest_bid.user  # Cập nhật owner_id của trang sức
-                auction_jewelry.final_price= highest_bid.amount
-                auction_jewelry.save()
+                    # Cập nhật trạng thái của jewelry
+                    auction_jewelry = self.jewelry
+                    auction_jewelry.status = 'SOLD'
+                    auction_jewelry.owner = highest_bid.user  # Cập nhật owner_id của trang sức
+                    auction_jewelry.final_price= highest_bid.amount
+                    auction_jewelry.save()
 
-                # Tạo Transaction (nếu đấu giá thành công)
-                fee_config = FeeConfiguration.objects.first()
-                if fee_config:
-                    transaction_amount = highest_bid.amount
-                    fee = transaction_amount * fee_config.fee_rate
+                    # Tạo Transaction (nếu đấu giá thành công)
+                    fee_config = FeeConfiguration.objects.first()
+                    if fee_config:
+                        transaction_amount = highest_bid.amount
+                        fee = transaction_amount * fee_config.fee_rate
 
-                    # Khởi tạo transaction
-                    transaction = Transaction.objects.create(
-                        auction=self,
-                        winning_bidder=highest_bid.user,
-                        jewelry_owner=auction_jewelry.owner,
-                        amount=transaction_amount,
-                        fee=fee,
-                        status='COMPLETED'
-                    )
+                        # Khởi tạo transaction
+                        transaction = Transaction.objects.create(
+                            auction=self,
+                            winning_bidder=highest_bid.user,
+                            jewelry_owner=auction_jewelry.owner,
+                            amount=transaction_amount,
+                            fee=fee,
+                            status='COMPLETED'
+                        )
 
-                    # Chuyển JCoin với F expressions và select_for_update()
-                    User.objects.filter(pk=highest_bid.user.pk).select_for_update().update(jcoin_balance=F('jcoin_balance') - transaction_amount)
-                    User.objects.filter(pk=auction_jewelry.owner.pk).select_for_update().update(jcoin_balance=F('jcoin_balance') + (transaction_amount - fee))
+                        # Chuyển JCoin với F expressions và select_for_update()
+                        User.objects.filter(pk=highest_bid.user.pk).select_for_update().update(jcoin_balance=F('jcoin_balance') - transaction_amount)
+                        User.objects.filter(pk=auction_jewelry.owner.pk).select_for_update().update(jcoin_balance=F('jcoin_balance') + (transaction_amount - fee))
 
-            else:
-                # Nếu không có bid nào, cập nhật trạng thái jewelry về 'NO_BIDS'
-                auction_jewelry = self.jewelry
-                auction_jewelry.status = 'NO_BIDS'
-                auction_jewelry.save()
+                else:
+                    # Nếu không có bid nào, cập nhật trạng thái jewelry về 'NO_BIDS'
+                    auction_jewelry = self.jewelry
+                    auction_jewelry.status = 'NO_BIDS'
+                    auction_jewelry.save()
 
-    elif self.status != 'OPEN':
-        raise ValidationError("Auction is not open.")
-    else:
-        raise ValidationError("Auction has not ended yet.")
+        elif self.status != 'OPEN':
+            raise ValidationError("Auction is not open.")
+        else:
+            raise ValidationError("Auction has not ended yet.")
 
     def save(self, *args, **kwargs):
         # Kiểm tra trạng thái của jewelry trước khi lưu

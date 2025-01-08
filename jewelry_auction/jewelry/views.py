@@ -19,7 +19,7 @@ def jewelry_create(request):
     return render(request, 'jewelry/jewelry_create.html', {'form': form})
 
 def jewelry_list(request):
-    jewelry_list = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS']).order_by('-jewelry_id')
+    jewelry_list = Jewelry.objects.filter(status__in=['APPROVED', 'AUCTIONING', 'NO_BIDS','SOLD']).order_by('-jewelry_id')
     
     # Search
     search_query = request.GET.get('search')
